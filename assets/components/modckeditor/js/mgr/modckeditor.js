@@ -3,7 +3,7 @@ var modckeditor = function (config) {
 	modckeditor.superclass.constructor.call(this, config);
 };
 Ext.extend(modckeditor, Ext.Component, {
-	page: {}, window: {}, grid: {}, tree: {}, panel: {}, combo: {}, config: {}, view: {}, utils: {}
+	page: {}, window: {}, grid: {}, tree: {}, panel: {}, combo: {}, config: {}, view: {}, tools: {}
 });
 Ext.reg('modckeditor', modckeditor);
 
