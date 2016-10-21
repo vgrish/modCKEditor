@@ -22,7 +22,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             array(
                 'ckeditor',
                 'ckeditor',
-                'https://github.com/ckeditor/ckeditor-dev.git',
+                'https://github.com/ckeditor/ckeditor-dev/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/modckeditor/vendor/'
             ),
         );
@@ -46,7 +46,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
             $modx->log(modX::LOG_LEVEL_INFO, "Trying to download <b>{$name}</b>. Please wait...");
             download($url, $path . $tmp);
-
+            
             $file = new PclZip($path . $tmp);
             if ($files = $file->extract(PCLZIP_OPT_PATH, $path)) {
                 unlink($path . $tmp);
