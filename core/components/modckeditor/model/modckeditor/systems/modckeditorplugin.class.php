@@ -11,22 +11,11 @@ abstract class modCKEditorPlugin
     /** @var bool $initEditor */
     public $initEditor = false;
 
-    public function __construct($modx, &$scriptProperties)
+    public function __construct(& $modx, &$scriptProperties)
     {
         $this->scriptProperties =& $scriptProperties;
-        $this->modx = $modx;
-        $this->modCKEditor = $this->modx->modCKEditor;
-
-        if (!is_object($this->modCKEditor) OR !($this->modCKEditor instanceof modCKEditor)) {
-            $corePath = $this->modx->getOption('modckeditor_core_path', null,
-                $this->modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/modckeditor/');
-            $this->modCKEditor = $this->modx->getService(
-                'modckeditor',
-                'modCKEditor',
-                $corePath . 'model/modckeditor/',
-                $this->scriptProperties
-            );
-        }
+        $this->modx = &$modx;
+        $this->modCKEditor = &$this->modx->modckeditor;
 
         if (!$this->modCKEditor) {
             return;

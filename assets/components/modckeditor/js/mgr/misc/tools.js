@@ -13,7 +13,7 @@ modckeditor.tools.getFileBrowseUrl = function () {
 
 
 modckeditor.tools.getFileUploadUrl = function (type) {
-	var url = modckeditor.config['connector_url'];
+	var url = modCKEditor.config['connector_url'];
 	var query = {
 		action: 'mgr/browser/file/upload',
 		path: '/',
@@ -23,10 +23,9 @@ modckeditor.tools.getFileUploadUrl = function (type) {
 		source: MODx.config['modckeditor_source_default'] || MODx.config['default_media_source'],
 	};
 
-	if (modclassvar.config['resource']) {
-		query['path'] = '/' + modclassvar.config['resource']['id'] + '/'
+	if (modCKEditor.config['resource']) {
+		query['path'] = '/' + modCKEditor.config['resource']['id'] + '/'
 	}
-
 
 	return url + '?' + Ext.urlEncode(query);
 };

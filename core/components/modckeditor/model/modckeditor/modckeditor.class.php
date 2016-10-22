@@ -85,67 +85,6 @@ class modCKEditor
         return $option;
     }
 
-    public function getCache($options = array())
-    {
-        $cacheKey = $this->getCacheKey($options);
-        $cacheOptions = $this->getCacheOptions($options);
-        $cached = '';
-        if (!empty($cacheOptions) AND !empty($cacheKey) AND $this->modx->getCacheManager()) {
-            $cached = $this->modx->cacheManager->get($cacheKey, $cacheOptions);
-        }
-
-        return $cached;
-    }
-
-    public function getCacheKey($options = array())
-    {
-        if (empty($options)) {
-            $options = $this->config;
-        }
-        if (!empty($options['cache_key'])) {
-            return $options['cache_key'];
-        }
-        $key = !empty($this->modx->resource) ? $this->modx->resource->getCacheKey() : '';
-
-        return $key . '/' . sha1(serialize($options));
-    }
-
-    protected function getCacheOptions($options = array())
-    {
-        if (empty($options)) {
-            $options = $this->config;
-        }
-        $cacheOptions = array(
-            xPDO::OPT_CACHE_KEY     => empty($options['cache_key'])
-                ? 'default'
-                : 'default/' . $this->namespace . '/',
-            xPDO::OPT_CACHE_HANDLER => !empty($options['cache_handler'])
-                ? $options['cache_handler']
-                : $this->modx->getOption('cache_resource_handler', null, 'xPDOFileCache'),
-            xPDO::OPT_CACHE_EXPIRES => (isset($options['cacheTime']) AND $options['cacheTime'] !== '')
-                ? (integer)$options['cacheTime']
-                : (integer)$this->modx->getOption('cache_resource_expires', null, 0),
-        );
-
-        return $cacheOptions;
-    }
-
-    public function setCache($data = array(), $options = array())
-    {
-        $cacheKey = $this->getCacheKey($options);
-        $cacheOptions = $this->getCacheOptions($options);
-        if (!empty($cacheKey) AND !empty($cacheOptions) AND $this->modx->getCacheManager()) {
-            $this->modx->cacheManager->set(
-                $cacheKey,
-                $data,
-                $cacheOptions[xPDO::OPT_CACHE_EXPIRES],
-                $cacheOptions
-            );
-        }
-
-        return $cacheKey;
-    }
-
     /**
      * @param        $array
      * @param string $delimiter
@@ -178,21 +117,22 @@ class modCKEditor
     }
 
 
-    public function loadControllerJsCss(modManagerController $controller, array $set = array())
-    {
+    public function loadControllerJsCss(
+        modManagerController $controller,
+        array $set = array(),
+        array $scriptProperties = array()
+    ) {
         $controller->addLexiconTopic('modckeditor:default');
 
         $config = $this->config;
+        $config['connector_url'] = $this->config['connectorUrl'];
+
         foreach (array('resource', 'user') as $key) {
-            if (isset($config[$key]) AND is_object($config[$key]) AND $config[$key] instanceof xPDOObject) {
-                /** @var $config xPDOObject[] */
-                $row = $config[$key]->toArray();
-                unset($config[$key]);
-                $config[$key] = $row;
+            $object = $this->modx->getOption($key, $scriptProperties);
+            if (is_object($object) AND $object instanceof xPDOObject) {
+                $config[$key] = $object->toArray();
             }
         }
-
-        $config['connector_url'] = $this->config['connectorUrl'];
 
         if (!empty($set['css'])) {
             $controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
@@ -202,8 +142,9 @@ class modCKEditor
             $controller->addHtml("
             <script type='text/javascript'>
                 Ext.ns(\"modckeditor\");
-                modckeditor.config={$this->modx->toJSON($config)};
-                modckeditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
+                modCKEditor = {};
+                modCKEditor.config={$this->modx->toJSON($config)};
+                modCKEditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
                 Ext.onReady(function(){
                     modckeditor.loadForTVs();
                 }); 
@@ -225,24 +166,17 @@ class modCKEditor
     public function getCKEditorConfig()
     {
         $prefix = 'modckeditor_ckeditor';
-        $options = array(
-            'cache_key' => $prefix,
-            'cacheTime' => 0,
-        );
-        if (!$config = $this->getCache($options)) {
-            $config = array();
+        $config = array();
 
-            $q = $this->modx->newQuery('modSystemSetting');
-            $q->where(array(
-                'area' => "{$prefix}_config"
-            ));
-            $q->select('key');
-            if ($q->prepare() AND $q->stmt->execute()) {
-                while ($key = $q->stmt->fetch(PDO::FETCH_COLUMN)) {
-                    $config[str_replace("{$prefix}_", '', $key)] = $this->modx->getOption($key, null);
-                }
+        $q = $this->modx->newQuery('modSystemSetting');
+        $q->where(array(
+            'area' => "{$prefix}_config"
+        ));
+        $q->select('key');
+        if ($q->prepare() AND $q->stmt->execute()) {
+            while ($key = $q->stmt->fetch(PDO::FETCH_COLUMN)) {
+                $config[str_replace("{$prefix}_", '', $key)] = $this->modx->getOption($key, null);
             }
-            //$this->setCache($config, $options);
         }
 
         return (array)$config;

@@ -4,13 +4,7 @@ class modCKEditorOnRichTextEditorInit extends modCKEditorPlugin
 {
     public function run()
     {
-        /** @var modResource $resource */
-        $resource = $this->modx->getOption('resource', $this->scriptProperties);
-        if (
-            !$this->initEditor
-            OR
-            ($resource AND !$richtext = $resource->get('richtext'))
-        ) {
+        if (!$this->initEditor) {
             return;
         }
 
@@ -20,8 +14,8 @@ class modCKEditorOnRichTextEditorInit extends modCKEditorPlugin
             'css'      => true,
             'config'   => true,
             'tools'    => true,
-            'ckeditor' => true
-        ));
+            'ckeditor' => true,
+        ), $this->scriptProperties);
 
     }
 

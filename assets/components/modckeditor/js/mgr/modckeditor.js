@@ -19,6 +19,9 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 		skin: 'moono',
 	},
+	config: {
+
+	},
 
 	initComponent: function () {
 		modckeditor.ckeditor.superclass.initComponent.call(this);
@@ -30,7 +33,8 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 	render: function () {
 		var $this = this;
-		Ext.apply(this.cfg, modckeditor.editorConfig, {});
+		Ext.apply(this.config, modCKEditor.config, {});
+		Ext.apply(this.cfg, modCKEditor.editorConfig, {});
 
 		Ext.each(Ext.query(this.cfg.selector), function (t) {
 			this.initialize(t.id, this.cfg);
@@ -89,7 +93,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 
 modckeditor.loadForTVs = function () {
-	new modckeditor.ckeditor({},{
+	new modckeditor.ckeditor({}, {
 		component: 'tvs',
 		selector: '.modx-richtext'
 	});
@@ -97,7 +101,10 @@ modckeditor.loadForTVs = function () {
 
 
 MODx.loadRTE = function (id) {
-	new modckeditor.ckeditor({},{
+	if (modCKEditor.config && modCKEditor.config.resource && !modCKEditor.config.resource.richtext) {
+		return false;
+	}
+	new modckeditor.ckeditor({}, {
 		component: 'content',
 		selector: '#' + id
 	});
