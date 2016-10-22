@@ -103,23 +103,34 @@ class modCKEditor
 
         if (!empty($set['css'])) {
             $controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
-            $controller->addCss($this->config['cssUrl'] . 'mgr/bootstrap.buttons.css');
         }
 
         if (!empty($set['config'])) {
-            $controller->addHtml("<script type='text/javascript'>modckeditor.config={$this->modx->toJSON($config)}</script>");
+            $controller->addHtml("
+            <script type='text/javascript'>
+                Ext.ns(\"modckeditor\");
+                modckeditor.config={$this->modx->toJSON($config)};
+                modckeditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
+                Ext.onReady(function(){
+                    modckeditor.loadForTVs();
+                }); 
+            </script>"
+            );
         }
 
         if (!empty($set['tools'])) {
             $controller->addJavascript($this->config['jsUrl'] . 'mgr/modckeditor.js');
             $controller->addJavascript($this->config['jsUrl'] . 'mgr/misc/tools.js');
-            //$controller->addJavascript($this->config['jsUrl'] . 'mgr/misc/combo.js');
         }
 
         if (!empty($set['ckeditor'])) {
-            //$controller->addCss($this->config['assetsUrl'] . 'vendor/ckeditor/dist/cropper.css');
             $controller->addLastJavascript($this->config['assetsUrl'] . 'vendor/ckeditor/ckeditor.js');
         }
     }
 
+    public function getEditorConfig()
+    {
+
+        return array();
+    }
 }

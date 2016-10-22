@@ -7,9 +7,6 @@ $tmp = array(
         'file'        => 'system',
         'description' => '',
         'events'      => array(
-            'OnBeforeDocFormSave'      => array('priority' => 10),
-            'OnDocFormPrerender'       => array('priority' => 10),
-            'OnDocFormSave'            => array('priority' => 10),
             'OnRichTextEditorInit'     => array('priority' => 10),
             'OnRichTextEditorRegister' => array('priority' => 10),
         )
