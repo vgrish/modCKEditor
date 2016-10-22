@@ -16,14 +16,9 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			tvs: true,
 			content: false
 		},
-		document_base_url: MODx.config['base_url'],
 
 		skin: 'moono',
-		filebrowserBrowseUrl: modckeditor.tools.getFileBrowseUrl(),
-
 	},
-
-	allowDrop: false,
 
 	initComponent: function () {
 		modckeditor.ckeditor.superclass.initComponent.call(this);
@@ -50,6 +45,14 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 
 	initialize: function (uid, config) {
+
+		/* add config */
+		if (!config['filebrowserBrowseUrl']) {
+			config['filebrowserBrowseUrl'] = modckeditor.tools.getFileBrowseUrl();
+		}
+		if (!config['filebrowserUploadUrl']) {
+			config['filebrowserUploadUrl'] = modckeditor.tools.getFileUploadUrl('image');
+		}
 
 		/* compact mode */
 		var compact = modckeditor.tools.getEditorCompact(config);
@@ -80,16 +83,13 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 		console.log(config);
 
-
 	},
 
 });
 
 
 modckeditor.loadForTVs = function () {
-	new modckeditor.ckeditor({
-		allowDrop: false
-	}, {
+	new modckeditor.ckeditor({},{
 		component: 'tvs',
 		selector: '.modx-richtext'
 	});
@@ -97,9 +97,7 @@ modckeditor.loadForTVs = function () {
 
 
 MODx.loadRTE = function (id) {
-	new modckeditor.ckeditor({
-		allowDrop: false
-	}, {
+	new modckeditor.ckeditor({},{
 		component: 'content',
 		selector: '#' + id
 	});

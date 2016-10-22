@@ -288,10 +288,11 @@ class modCKEditor
                 $config[$key] = (bool)$config[$key];
             }
         }
-        
+
 
         $config['skin'] = 'flat';
 
         return $config;
     }
+
 }

@@ -51,7 +51,7 @@ $tmp = array(
     ),
 
     'ckeditor_extraPlugins'      => array(
-        'value' => 'codesnippet',
+        'value' => 'codesnippet,uploadimage,embed',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
@@ -85,6 +85,13 @@ $tmp = array(
         'value' => '{"tvs":true,"content":false}',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
+    ),
+
+
+    'source_default'          => array(
+        'value' => '0',
+        'xtype' => 'modx-combo-source',
+        'area'  => 'modckeditor_main',
     ),
 
 

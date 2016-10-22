@@ -3,7 +3,31 @@ Ext.ns('modckeditor.tools');
 
 modckeditor.tools.getFileBrowseUrl = function () {
 	var url = MODx.config['manager_url'] + 'index.php';
-	var query = {a: MODx.action['browser'], source: MODx.config['default_media_source']};
+	var query = {
+		a: MODx.action['browser'],
+		source: MODx.config['modckeditor_source_default'] || MODx.config['default_media_source']
+	};
+
+	return url + '?' + Ext.urlEncode(query);
+};
+
+
+modckeditor.tools.getFileUploadUrl = function (type) {
+	var url = modckeditor.config['connector_url'];
+	var query = {
+		action: 'mgr/browser/file/upload',
+		path: '/',
+		wctx: MODx.ctx,
+		HTTP_MODAUTH: MODx.siteId,
+		type: type || '',
+		source: MODx.config['modckeditor_source_default'] || MODx.config['default_media_source'],
+	};
+
+	if (modclassvar.config['resource']) {
+		query['path'] = '/' + modclassvar.config['resource']['id'] + '/'
+	}
+
+
 	return url + '?' + Ext.urlEncode(query);
 };
 

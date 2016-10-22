@@ -37,6 +37,7 @@ define('BUILD_PLUGIN_STATIC', false);
 
 $BUILD_RESOLVERS = array(
     // 'vendors',
-    'settings'
+    'sources',
+    'settings',
 
 );
