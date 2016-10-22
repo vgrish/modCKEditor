@@ -10,12 +10,17 @@ modckeditor.ckeditor = function (config, editorConfig) {
 
 Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	cfg: {
-		skin: 'moono',
 		selector: '#ta',
+		component: 'content',
+		editorCompact: {
+			tvs: true,
+			content: false
+		},
+		document_base_url: MODx.config['base_url'],
 
+		skin: 'moono',
 		filebrowserBrowseUrl: modckeditor.tools.getFileBrowseUrl(),
 
-		document_base_url: MODx.config.base_url,
 	},
 
 	allowDrop: false,
@@ -45,7 +50,16 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 
 	initialize: function (uid, config) {
-		this.editors[uid] = CKEDITOR.replace(uid, config);
+
+		/* compact mode */
+		var compact = modckeditor.tools.getEditorCompact(config);
+		if (compact) {
+			this.editors[uid] = CKEDITOR.inline(uid, config);
+		}
+		else {
+			this.editors[uid] = CKEDITOR.replace(uid, config);
+		}
+
 		if (!this.editors[uid]) {
 			return false;
 		}
@@ -63,6 +77,10 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}
 		});
 
+
+		console.log(config);
+
+
 	},
 
 });
@@ -72,6 +90,7 @@ modckeditor.loadForTVs = function () {
 	new modckeditor.ckeditor({
 		allowDrop: false
 	}, {
+		component: 'tvs',
 		selector: '.modx-richtext'
 	});
 };
@@ -81,6 +100,7 @@ MODx.loadRTE = function (id) {
 	new modckeditor.ckeditor({
 		allowDrop: false
 	}, {
+		component: 'content',
 		selector: '#' + id
 	});
 };

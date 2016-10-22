@@ -268,7 +268,8 @@ class modCKEditor
         /* json to array */
         foreach (array(
                      'toolbar',
-                     'toolbarGroups'
+                     'toolbarGroups',
+                     'editorCompact',
                  ) as $key) {
             if (isset($config[$key])) {
                 $config[$key] = json_decode($config[$key], 1);
@@ -280,14 +281,14 @@ class modCKEditor
                      'entities',
                      'toolbarCanCollapse',
                      'disableObjectResizing',
+                     'disableNativeSpellChecker',
 
                  ) as $key) {
             if (isset($config[$key])) {
                 $config[$key] = (bool)$config[$key];
             }
         }
-
-
+        
 
         $config['skin'] = 'flat';
 

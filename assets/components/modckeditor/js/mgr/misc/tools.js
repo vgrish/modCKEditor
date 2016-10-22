@@ -11,8 +11,6 @@ modckeditor.tools.getFileBrowseUrl = function () {
 modckeditor.tools.getUpdateButton = function () {
 	var pageButtons = MODx.activePage ? MODx.activePage.buttons : {};
 
-	console.log(pageButtons);
-
 	for (var button in pageButtons) {
 		var process = pageButtons[button].process;
 		if (!process)
@@ -22,4 +20,16 @@ modckeditor.tools.getUpdateButton = function () {
 		}
 	}
 	return null;
+};
+
+
+modckeditor.tools.getEditorCompact = function (config) {
+	var compact = false;
+	var component = config.component;
+
+	if (config.editorCompact) {
+		compact = config.editorCompact[component];
+	}
+
+	return compact;
 };

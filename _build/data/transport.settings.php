@@ -30,7 +30,7 @@ $tmp = array(
         'area'  => 'modckeditor_ckeditor_config',
     ),
     'ckeditor_removePlugins'  => array(
-        'value' => 'autogrow,bidi,font,forms,liststyle,justify,pagebreak,preview,print,colorbutton,indentblock,newpage,language,save,selectall,smiley',
+        'value' => 'autogrow,bidi,font,forms,liststyle,justify,pagebreak,preview,print,colorbutton,indentblock,newpage,language,save,selectall,smiley,scayt,wsc',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
@@ -49,41 +49,57 @@ $tmp = array(
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_extraPlugins'   => array(
-        'value' => '',
+
+    'ckeditor_extraPlugins'      => array(
+        'value' => 'codesnippet',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_entities' => array(
+    'ckeditor_codeSnippet_theme' => array(
+        'value' => 'default',
+        'xtype' => 'textfield',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+
+    'ckeditor_entities'                  => array(
         'xtype' => 'combo-boolean',
         'value' => false,
-        'area' => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_toolbarCanCollapse' => array(
+    'ckeditor_toolbarCanCollapse'        => array(
         'xtype' => 'combo-boolean',
         'value' => true,
-        'area' => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_disableObjectResizing' => array(
+    'ckeditor_disableObjectResizing'     => array(
         'xtype' => 'combo-boolean',
         'value' => true,
-        'area' => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_ckeditor_config',
     ),
-    //
+    'ckeditor_disableNativeSpellChecker' => array(
+        'xtype' => 'combo-boolean',
+        'value' => false,
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+    'ckeditor_editorCompact'             => array(
+        'value' => '{"tvs":true,"content":false}',
+        'xtype' => 'textarea',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
 
-    //allowedContent
+
     //временные
-    'assets_path'             => array(
+    'assets_path'                        => array(
         'value' => '{base_path}modckeditor/assets/components/modckeditor/',
         'xtype' => 'textfield',
         'area'  => 'modckeditor_temp',
     ),
-    'assets_url'              => array(
+    'assets_url'                         => array(
         'value' => '/modckeditor/assets/components/modckeditor/',
         'xtype' => 'textfield',
         'area'  => 'modckeditor_temp',
     ),
-    'core_path'               => array(
+    'core_path'                          => array(
         'value' => '{base_path}modckeditor/core/components/modckeditor/',
         'xtype' => 'textfield',
         'area'  => 'modckeditor_temp',
