@@ -9,6 +9,7 @@ $tmp = array(
         'events'      => array(
             'OnRichTextEditorInit'     => array('priority' => 10),
             'OnRichTextEditorRegister' => array('priority' => 10),
+            'OnRichTextBrowserInit'    => array('priority' => 10),
         )
     )
 );

@@ -1,5 +1,6 @@
 Ext.ns('modckeditor');
 
+
 modckeditor.ckeditor = function (config, editorConfig) {
 	Ext.apply(this.cfg, editorConfig, {});
 
@@ -9,9 +10,14 @@ modckeditor.ckeditor = function (config, editorConfig) {
 
 Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	cfg: {
+		skin: 'moono',
 		selector: '#ta',
+
+		filebrowserBrowseUrl: modckeditor.tools.getFileBrowseUrl(),
+
 		document_base_url: MODx.config.base_url,
 	},
+
 	allowDrop: false,
 
 	initComponent: function () {
@@ -27,17 +33,37 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		Ext.apply(this.cfg, modckeditor.editorConfig, {});
 
 		Ext.each(Ext.query(this.cfg.selector), function (t) {
-			var uid = t.id;
-
-			this.editors[uid] = CKEDITOR.replace(uid, {});
+			this.initialize(t.id, this.cfg);
 
 			/*var element = Ext.get(t.id);
-			if (element) {
-				console.log(o);
-			}*/
+			 if (element) {
+			 console.log(o);
+			 }*/
 
 		}, this);
-	}
+	},
+
+
+	initialize: function (uid, config) {
+		this.editors[uid] = CKEDITOR.replace(uid, config);
+		if (!this.editors[uid]) {
+			return false;
+		}
+
+		/* add save */
+		this.editors[uid].setKeystroke(CKEDITOR.CTRL + 83, '_save');
+		this.editors[uid].addCommand('_save', {
+			exec: function (editor) {
+				console.log('sdavee');
+
+				var updateButton = modckeditor.tools.getUpdateButton();
+				if (updateButton) {
+					MODx.activePage.ab.handleClick(updateButton);
+				}
+			}
+		});
+
+	},
 
 });
 
@@ -58,3 +84,11 @@ MODx.loadRTE = function (id) {
 		selector: '#' + id
 	});
 };
+
+
+Ext.onReady(function () {
+
+});
+
+
+
