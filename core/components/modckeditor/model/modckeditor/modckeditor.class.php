@@ -24,25 +24,17 @@ class modCKEditor
 
         $corePath = $this->getOption('core_path', $config,
             $this->modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/modckeditor/');
-        $assetsPath = $this->getOption('assets_path', $config,
-            $this->modx->getOption('assets_path', null, MODX_ASSETS_PATH) . 'components/modckeditor/');
         $assetsUrl = $this->getOption('assets_url', $config,
             $this->modx->getOption('assets_url', null, MODX_ASSETS_URL) . 'components/modckeditor/');
-        $connectorUrl = $assetsUrl . 'connector.php';
 
         $this->config = array_merge(array(
-            'namespace'      => $this->namespace,
-            'assetsBasePath' => MODX_ASSETS_PATH,
-            'assetsBaseUrl'  => MODX_ASSETS_URL,
-
+            'namespace'    => $this->namespace,
+            'corePath'     => $corePath,
+            'modelPath'    => $corePath . 'model/',
             'assetsUrl'    => $assetsUrl,
             'cssUrl'       => $assetsUrl . 'css/',
             'jsUrl'        => $assetsUrl . 'js/',
-            'connectorUrl' => $connectorUrl,
-
-            'corePath'  => $corePath,
-            'modelPath' => $corePath . 'model/'
-
+            'connectorUrl' => $assetsUrl . 'connector.php',
         ), $config);
 
         $this->modx->addPackage('modckeditor', $this->getOption('modelPath'));
@@ -224,9 +216,6 @@ class modCKEditor
                 $config[$key] = (bool)$config[$key];
             }
         }
-
-
-        $config['skin'] = 'flat';
 
         return $config;
     }

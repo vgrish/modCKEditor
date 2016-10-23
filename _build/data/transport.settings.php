@@ -5,7 +5,7 @@ $settings = array();
 $tmp = array(
 
     'ckeditor_skin'              => array(
-        'value' => 'moono',
+        'value' => 'flat',
         'xtype' => 'textfield',
         'area'  => 'modckeditor_ckeditor_config',
     ),

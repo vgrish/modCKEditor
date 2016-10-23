@@ -32,18 +32,11 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	editors: {},
 
 	render: function () {
-		var $this = this;
 		Ext.apply(this.config, modCKEditor.config, {});
 		Ext.apply(this.cfg, modCKEditor.editorConfig, {});
 
 		Ext.each(Ext.query(this.cfg.selector), function (t) {
 			this.initialize(t.id, this.cfg);
-
-			/*var element = Ext.get(t.id);
-			 if (element) {
-			 console.log(o);
-			 }*/
-
 		}, this);
 	},
 
@@ -72,7 +65,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			var assetsUrl = modckeditor.tools.getAssetsUrl();
 			for (var name in config['addExternalSkin']) {
 				var skin = config['addExternalSkin'][name];
-				if (skin) {
+				if (skin && name == config.skin) {
 					config.skin = skin + ',' + assetsUrl + skin;
 				}
 			}
@@ -80,24 +73,23 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 
 		/* compact mode */
+		var editor = null;
 		var compact = modckeditor.tools.getEditorCompact(config);
 		if (compact) {
-			this.editors[uid] = CKEDITOR.inline(uid, config);
+			editor = CKEDITOR.inline(uid, config);
 		}
 		else {
-			this.editors[uid] = CKEDITOR.replace(uid, config);
+			editor = CKEDITOR.replace(uid, config);
 		}
 
-		if (!this.editors[uid]) {
+		if (!editor) {
 			return false;
 		}
 
 		/* add save */
-		this.editors[uid].setKeystroke(CKEDITOR.CTRL + 83, '_save');
-		this.editors[uid].addCommand('_save', {
+		editor.setKeystroke(CKEDITOR.CTRL + 83, '_save');
+		editor.addCommand('_save', {
 			exec: function (editor) {
-				console.log('sdavee');
-
 				var updateButton = modckeditor.tools.getUpdateButton();
 				if (updateButton) {
 					MODx.activePage.ab.handleClick(updateButton);
@@ -105,9 +97,15 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}
 		});
 
+		/* add droppable */
+		if (config['droppable']) {
+			editor.on('uiReady', function() {
+				/* TODO */
 
-		console.log(config);
+			}, this);
+		}
 
+		this.editors[uid] = editor;
 	},
 
 });
@@ -116,7 +114,8 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 modckeditor.loadForTVs = function () {
 	new modckeditor.ckeditor({}, {
 		component: 'tvs',
-		selector: '.modx-richtext'
+		selector: '.modx-richtext',
+		droppable: false
 	});
 };
 
@@ -127,7 +126,8 @@ MODx.loadRTE = function (id) {
 	}
 	new modckeditor.ckeditor({}, {
 		component: 'content',
-		selector: '#' + id
+		selector: '#' + id,
+		droppable: true
 	});
 };
 
