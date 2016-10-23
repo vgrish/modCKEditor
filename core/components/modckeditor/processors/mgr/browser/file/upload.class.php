@@ -32,12 +32,12 @@ class modCKEditorBrowserFileUploadProcessor extends modProcessor
     public function process()
     {
         if (!$this->getSource()) {
-            return $this->failure($this->modx->lexicon('permission_denied'));
+            return $this->_failure($this->modx->lexicon('permission_denied'));
         }
         $this->source->setRequestProperties($this->getProperties());
         $this->source->initialize();
         if (!$this->source->checkPolicy('create')) {
-            return $this->failure($this->modx->lexicon('permission_denied'));
+            return $this->_failure($this->modx->lexicon('permission_denied'));
         }
 
         $path = '';
@@ -52,10 +52,10 @@ class modCKEditorBrowserFileUploadProcessor extends modProcessor
         if (empty($success)) {
             $errors = $this->source->getErrors();
 
-            return $this->failure($_FILES, $errors);
+            return $this->_failure($errors, $_FILES);
         }
 
-        return $this->success($_FILES);
+        return $this->_success('', $_FILES);
     }
 
     /**
@@ -73,14 +73,16 @@ class modCKEditorBrowserFileUploadProcessor extends modProcessor
         return $this->source;
     }
 
-    public function success(array $data = array(), array $error = array())
+    public function _success($message = '', array $data = array())
     {
         $response = array(
             'url'      => '',
             'fileName' => '',
             'uploaded' => true,
             'data'     => $data,
-            'error'    => $error
+            'error'    => array(
+                'message' => is_array($message) ? implode('<br>', $message) : $message
+            )
         );
 
         $upload = isset($data['upload']) ? $data['upload'] : $data['file'];
@@ -97,14 +99,16 @@ class modCKEditorBrowserFileUploadProcessor extends modProcessor
         return "<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('{$funcNum}', '{$response['url']}', '');</script>";
     }
 
-    public function failure(array $data = array(), array $error = array())
+    public function _failure($message = '', array $data = array())
     {
         $response = array(
             'url'      => '',
             'fileName' => '',
             'uploaded' => false,
             'data'     => $data,
-            'error'    => $error
+            'error'    => array(
+                'message' => is_array($message) ? implode('<br>', $message) : $message
+            )
         );
 
         return json_encode($response, 1);
