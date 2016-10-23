@@ -31,12 +31,12 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'https://github.com/vgrish/skin-ckeditor-flat/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/modckeditor/vendor/skins/'
             ),
-            array(
+            /*array(
                 'pagecut',
                 'pagecut',
                 'https://github.com/artygrand/CKEditor-pagecut-plugin/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/modckeditor/vendor/plugins/'
-            ),
+            ),*/
         );
 
         foreach ($vendors as $vendor) {

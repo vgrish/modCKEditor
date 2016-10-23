@@ -137,7 +137,7 @@ $tmp = array(
 
 
     //временные
-    'assets_path'    => array(
+   /* 'assets_path'    => array(
         'value' => '{base_path}modckeditor/assets/components/modckeditor/',
         'xtype' => 'textfield',
         'area'  => 'modckeditor_temp',
@@ -151,7 +151,7 @@ $tmp = array(
         'value' => '{base_path}modckeditor/core/components/modckeditor/',
         'xtype' => 'textfield',
         'area'  => 'modckeditor_temp',
-    ),
+    ),*/
 
     /*
 	'some_setting' => array(
