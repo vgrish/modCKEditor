@@ -101,11 +101,32 @@ $tmp = array(
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_enableModTemplates'          => array(
+    'ckeditor_enableModTemplates'        => array(
         'value' => true,
         'xtype' => 'combo-boolean',
         'area'  => 'modckeditor_ckeditor_config',
     ),
+    'ckeditor_enterMode'                 => array(
+        'value' => 2,
+        'xtype' => 'numberfield',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+    'ckeditor_shiftEnterMode'            => array(
+        'value' => 2,
+        'xtype' => 'numberfield',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+    'ckeditor_fillEmptyBlocks'        => array(
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+    'ckeditor_basicEntities'        => array(
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+
 
 
     'source_default' => array(

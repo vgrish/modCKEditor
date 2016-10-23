@@ -209,13 +209,26 @@ class modCKEditor
         /* string to bool */
         foreach (array(
                      'entities',
+                     'autoParagraph',
                      'toolbarCanCollapse',
                      'disableObjectResizing',
                      'disableNativeSpellChecker',
-                     'enableModTemplates'
+                     'enableModTemplates',
+                     'fillEmptyBlocks',
+                     'basicEntities'
                  ) as $key) {
             if (isset($config[$key])) {
                 $config[$key] = (bool)$config[$key];
+            }
+        }
+
+        /* string to int */
+        foreach (array(
+                     'enterMode',
+                     'shiftEnterMode'
+                 ) as $key) {
+            if (isset($config[$key])) {
+                $config[$key] = (int)$config[$key];
             }
         }
 
