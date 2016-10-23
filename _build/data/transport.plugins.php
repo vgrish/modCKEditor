@@ -7,9 +7,9 @@ $tmp = array(
         'file'        => 'system',
         'description' => '',
         'events'      => array(
-            'OnRichTextEditorInit'     => array('priority' => 10),
-            'OnRichTextEditorRegister' => array('priority' => 10),
-            'OnRichTextBrowserInit'    => array('priority' => 10),
+            'OnRichTextEditorInit'     => array('priority' => 0),
+            'OnRichTextEditorRegister' => array('priority' => 0),
+            'OnRichTextBrowserInit'    => array('priority' => 0),
         )
     )
 );

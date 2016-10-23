@@ -20,7 +20,7 @@ modckeditor.tools.getFileBrowseUrl = function () {
 
 
 modckeditor.tools.getFileUploadUrl = function (type) {
-	var url = modCKEditor.config['connector_url'];
+	var url = modckeditor.config['connector_url'];
 	var query = {
 		action: 'mgr/browser/file/upload',
 		path: '/',
@@ -30,8 +30,9 @@ modckeditor.tools.getFileUploadUrl = function (type) {
 		source: MODx.config['modckeditor_source_default'] || MODx.config['default_media_source'],
 	};
 
-	if (modCKEditor.config['resource']) {
-		query['path'] = '/' + modCKEditor.config['resource']['id'] + '/'
+	var id = modckeditor.tools.getResourceField('id');
+	if (id) {
+		query['path'] = '/' + id + '/'
 	}
 
 	return url + '?' + Ext.urlEncode(query);
@@ -49,7 +50,24 @@ modckeditor.tools.getUpdateButton = function () {
 			return pageButtons[button];
 		}
 	}
+
 	return null;
+};
+
+
+modckeditor.tools.getResourceField = function (field) {
+	var config = MODx.activePage ? MODx.activePage.config : {};
+	var record = config.record ? config.record : {};
+
+	if (modckeditor != undefined) {
+		record = modckeditor.config.resource || {};
+	}
+
+	if (!field) {
+		return record;
+	}
+
+	return record[field];
 };
 
 
@@ -71,4 +89,9 @@ modckeditor.tools.inArray = function (needle, haystack) {
 	}
 
 	return false;
+};
+
+
+modckeditor.tools.empty = function (value) {
+	return (typeof(value) == 'undefined' || value == 0 || value === null || value === false || (typeof(value) == 'string' && value.replace(/\s+/g, '') == '') || (typeof(value) == 'object' && value.length == 0));
 };

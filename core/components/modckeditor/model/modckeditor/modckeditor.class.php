@@ -114,7 +114,7 @@ class modCKEditor
         array $set = array(),
         array $scriptProperties = array()
     ) {
-        $controller->addLexiconTopic('modckeditor:default');
+        $output = '';
 
         $config = $this->config;
         $config['connector_url'] = $this->config['connectorUrl'];
@@ -127,15 +127,15 @@ class modCKEditor
         }
 
         if (!empty($set['config'])) {
-            $controller->addHtml("
+            $output .= "
             <script type='text/javascript'>
-                modCKEditor = {};
-                modCKEditor.config={$this->modx->toJSON($config)};
-                modCKEditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
+                Ext.ns('modckeditor');
+                modckeditor.config={$this->modx->toJSON($config)};
+                modckeditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
                 Ext.onReady(function(){
                     modckeditor.loadForTVs();
                 });
-            </script>");
+            </script>";
         }
 
         if (!empty($set['css'])) {
@@ -148,9 +148,12 @@ class modCKEditor
         }
 
         if (!empty($set['ckeditor'])) {
-            $controller->addLastJavascript($this->config['assetsUrl'] . 'vendor/ckeditor/ckeditor.js');
+            $controller->addJavascript($this->config['assetsUrl'] . 'vendor/ckeditor/ckeditor.js');
         }
 
+        $controller->addLexiconTopic('modckeditor:default');
+
+        return $output;
     }
 
     public function getCKEditorConfig()

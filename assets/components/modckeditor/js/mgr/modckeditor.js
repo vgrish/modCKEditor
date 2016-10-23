@@ -1,10 +1,10 @@
 Ext.ns('modckeditor');
 
 
-modckeditor.ckeditor = function (config, editorConfig) {
+modckeditor.ckeditor = function (editorConfig) {
 	Ext.apply(this.cfg, editorConfig, {});
 
-	modckeditor.ckeditor.superclass.constructor.call(this, config);
+	modckeditor.ckeditor.superclass.constructor.call(this);
 };
 
 
@@ -19,7 +19,6 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 		skin: 'moono',
 	},
-	config: {},
 	editors: {},
 
 	initComponent: function () {
@@ -29,9 +28,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	},
 
 	render: function () {
-		Ext.apply(this.config, modCKEditor.config, {});
-		Ext.apply(this.cfg, modCKEditor.editorConfig, {});
-
+		Ext.apply(this.cfg, modckeditor.editorConfig, {});
 		Ext.each(Ext.query(this.cfg.selector), function (t) {
 			this.initialize(t.id, this.cfg);
 		}, this);
@@ -130,11 +127,11 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 		CKEDITOR.on("instanceReady", function () {
 
-			if (modCKEditor.editorConfig['enableModTemplates'] && !CKEDITOR['enableModTemplates']) {
+			if (modckeditor.editorConfig['enableModTemplates'] && !CKEDITOR['enableModTemplates']) {
 				CKEDITOR['enableModTemplates'] = true;
 
 				MODx.Ajax.request({
-					url: modCKEditor.config.connector_url,
+					url: modckeditor.config.connector_url,
 					params: {
 						action: 'mgr/template/getlist',
 						component: config.component || '',
@@ -176,7 +173,10 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 
 modckeditor.loadForTVs = function () {
-	new modckeditor.ckeditor({}, {
+	if (modckeditor.config == undefined) {
+		return false;
+	}
+	new modckeditor.ckeditor({
 		component: 'tvs',
 		selector: '.modx-richtext',
 		droppable: false
@@ -185,10 +185,10 @@ modckeditor.loadForTVs = function () {
 
 
 MODx.loadRTE = function (id) {
-	if (modCKEditor && modCKEditor.config && modCKEditor.config.resource && !modCKEditor.config.resource.richtext) {
+	if (modckeditor.config == undefined) {
 		return false;
 	}
-	new modckeditor.ckeditor({}, {
+	new modckeditor.ckeditor({
 		component: 'content',
 		selector: '#' + id,
 		droppable: true
@@ -196,9 +196,12 @@ MODx.loadRTE = function (id) {
 };
 
 
-Ext.onReady(function () {
-
-});
-
+MODx.unloadRTE = function(id) {
+	var editor = CKEDITOR.instances[id];
+	if (editor) {
+		CKEDITOR.remove(editor);
+		editor.destroy(true);
+	}
+};
 
 

@@ -8,13 +8,14 @@ class modCKEditorOnRichTextEditorInit extends modCKEditorPlugin
             return;
         }
 
-        $this->modCKEditor->loadControllerJsCss($this->modx->controller, array(
+        $output = $this->modCKEditor->loadControllerJsCss($this->modx->controller, array(
             'css'      => true,
             'config'   => true,
             'tools'    => true,
             'ckeditor' => true,
         ), $this->scriptProperties);
 
+        $this->modx->event->output($output);
     }
 
 }
