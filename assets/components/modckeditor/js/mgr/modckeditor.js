@@ -58,6 +58,27 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			config['filebrowserUploadUrl'] = modckeditor.tools.getFileUploadUrl('image');
 		}
 
+		if (config['addExternalPlugins']) {
+			var assetsUrl = modckeditor.tools.getAssetsUrl();
+			for (var name in config['addExternalPlugins']) {
+				var script = config['addExternalPlugins'][name];
+				if (script) {
+					CKEDITOR.plugins.addExternal(name, assetsUrl + script, '' );
+				}
+			}
+		}
+
+		if (config['addExternalSkin']) {
+			var assetsUrl = modckeditor.tools.getAssetsUrl();
+			for (var name in config['addExternalSkin']) {
+				var skin = config['addExternalSkin'][name];
+				if (skin) {
+					config.skin = skin + ',' + assetsUrl + skin;
+				}
+			}
+		}
+
+
 		/* compact mode */
 		var compact = modckeditor.tools.getEditorCompact(config);
 		if (compact) {

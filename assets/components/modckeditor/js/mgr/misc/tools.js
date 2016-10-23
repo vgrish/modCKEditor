@@ -1,6 +1,13 @@
 Ext.ns('modckeditor.tools');
 
 
+modckeditor.tools.getAssetsUrl = function () {
+	var url = MODx.config['assets_url'];
+
+	return url;
+};
+
+
 modckeditor.tools.getFileBrowseUrl = function () {
 	var url = MODx.config['manager_url'] + 'index.php';
 	var query = {

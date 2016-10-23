@@ -204,6 +204,8 @@ class modCKEditor
                      'toolbar',
                      'toolbarGroups',
                      'editorCompact',
+                     'addExternalPlugins',
+                     'addExternalSkin',
                  ) as $key) {
             if (isset($config[$key])) {
                 $config[$key] = json_decode($config[$key], 1);

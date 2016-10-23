@@ -25,6 +25,18 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'https://github.com/ckeditor/ckeditor-dev/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/modckeditor/vendor/'
             ),
+            array(
+                'flat',
+                'flat',
+                'https://github.com/vgrish/skin-ckeditor-flat/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/modckeditor/vendor/skins/'
+            ),
+            array(
+                'pagecut',
+                'pagecut',
+                'https://github.com/artygrand/CKEditor-pagecut-plugin/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/modckeditor/vendor/plugins/'
+            ),
         );
 
         foreach ($vendors as $vendor) {
@@ -46,7 +58,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
             $modx->log(modX::LOG_LEVEL_INFO, "Trying to download <b>{$name}</b>. Please wait...");
             download($url, $path . $tmp);
-            
+
             $file = new PclZip($path . $tmp);
             if ($files = $file->extract(PCLZIP_OPT_PATH, $path)) {
                 unlink($path . $tmp);
