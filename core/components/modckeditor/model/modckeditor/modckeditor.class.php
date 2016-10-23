@@ -198,6 +198,7 @@ class modCKEditor
                      'editorCompact',
                      'addExternalPlugins',
                      'addExternalSkin',
+                     'addTemplates',
                  ) as $key) {
             if (isset($config[$key])) {
                 $config[$key] = json_decode($config[$key], 1);
@@ -210,7 +211,7 @@ class modCKEditor
                      'toolbarCanCollapse',
                      'disableObjectResizing',
                      'disableNativeSpellChecker',
-
+                     'enableModTemplates'
                  ) as $key) {
             if (isset($config[$key])) {
                 $config[$key] = (bool)$config[$key];

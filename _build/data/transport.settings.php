@@ -91,11 +91,22 @@ $tmp = array(
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_addExternalSkin'          => array(
+    'ckeditor_addExternalSkin'           => array(
         'value' => '{"flat":"/components/modckeditor/vendor/skins/flat/"}',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
+    'ckeditor_addTemplates'              => array(
+        'value' => '{"default":"/components/modckeditor/vendor/ckeditor/plugins/templates/templates/default.js"}',
+        'xtype' => 'textarea',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+    'ckeditor_enableModTemplates'          => array(
+        'value' => true,
+        'xtype' => 'combo-boolean',
+        'area'  => 'modckeditor_ckeditor_config',
+    ),
+
 
     'source_default' => array(
         'value' => '0',

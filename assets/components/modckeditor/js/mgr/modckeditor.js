@@ -19,17 +19,14 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 		skin: 'moono',
 	},
-	config: {
-
-	},
+	config: {},
+	editors: {},
 
 	initComponent: function () {
 		modckeditor.ckeditor.superclass.initComponent.call(this);
 
 		Ext.onReady(this.render, this);
 	},
-
-	editors: {},
 
 	render: function () {
 		Ext.apply(this.config, modCKEditor.config, {});
@@ -42,6 +39,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 
 	initialize: function (uid, config) {
+		var assetsUrl = modckeditor.tools.getAssetsUrl();
 
 		/* add config */
 		if (!config['filebrowserBrowseUrl']) {
@@ -52,17 +50,15 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		}
 
 		if (config['addExternalPlugins']) {
-			var assetsUrl = modckeditor.tools.getAssetsUrl();
 			for (var name in config['addExternalPlugins']) {
 				var script = config['addExternalPlugins'][name];
 				if (script) {
-					CKEDITOR.plugins.addExternal(name, assetsUrl + script, '' );
+					CKEDITOR.plugins.addExternal(name, assetsUrl + script, '');
 				}
 			}
 		}
 
 		if (config['addExternalSkin']) {
-			var assetsUrl = modckeditor.tools.getAssetsUrl();
 			for (var name in config['addExternalSkin']) {
 				var skin = config['addExternalSkin'][name];
 				if (skin && name == config.skin) {
@@ -71,6 +67,32 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}
 		}
 
+		if (config['addTemplates']) {
+			var templates = config.templates ? config.templates.split(',') : [];
+			var templatesFiles = [];
+
+			for (var name in config['addTemplates']) {
+				var template = config['addTemplates'][name];
+				if (template && !modckeditor.tools.inArray(name, templates)) {
+					templates.push(name);
+					templatesFiles.push(assetsUrl + template);
+				}
+			}
+
+			if (templatesFiles.length) {
+				config.templates_files = templatesFiles;
+				config.templates = templates.join(',');
+			}
+		}
+
+		if (config['enableModTemplates']) {
+			var templates = config.templates ? config.templates.split(',') : [];
+			var name = 'modtemplate';
+			if (!modckeditor.tools.inArray(name, templates)) {
+				templates.push(name);
+				config.templates = templates.join(',');
+			}
+		}
 
 		/* compact mode */
 		var editor = null;
@@ -99,11 +121,53 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 		/* add droppable */
 		if (config['droppable']) {
-			editor.on('uiReady', function() {
+			editor.on('uiReady', function () {
 				/* TODO */
 
 			}, this);
 		}
+
+
+		CKEDITOR.on("instanceReady", function () {
+
+			if (modCKEditor.editorConfig['enableModTemplates'] && !CKEDITOR['enableModTemplates']) {
+				CKEDITOR['enableModTemplates'] = true;
+
+				MODx.Ajax.request({
+					url: modCKEditor.config.connector_url,
+					params: {
+						action: 'mgr/template/getlist',
+						component: config.component || '',
+					},
+					listeners: {
+						success: {
+							fn: function (r) {
+								var templates = [];
+								r.results.filter(function (row) {
+									var template = [];
+
+									template.title = row['templatename'];
+									template.image = '';
+									template.description = row['description'];
+									template.html = row['content'];
+
+									templates.push(template);
+								});
+
+								var loadTemplates = CKEDITOR.getTemplates('modtemplate');
+								if (!loadTemplates || loadTemplates == 'undefined') {
+									CKEDITOR.addTemplates('modtemplate', {
+										templates: templates
+									});
+								}
+							},
+							scope: this
+						}
+					}
+				});
+			}
+
+		});
 
 		this.editors[uid] = editor;
 	},

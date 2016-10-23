@@ -63,3 +63,12 @@ modckeditor.tools.getEditorCompact = function (config) {
 
 	return compact;
 };
+
+
+modckeditor.tools.inArray = function (needle, haystack) {
+	for (key in haystack) {
+		if (haystack[key] == needle) return true;
+	}
+
+	return false;
+};
