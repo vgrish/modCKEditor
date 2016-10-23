@@ -30,7 +30,7 @@ $tmp = array(
         'area'  => 'modckeditor_ckeditor_config',
     ),
     'ckeditor_removePlugins'     => array(
-        'value' => 'autogrow,bidi,font,forms,liststyle,justify,pagebreak,preview,print,colorbutton,indentblock,newpage,language,save,selectall,smiley,scayt,wsc',
+        'value' => 'autogrow,bidi,font,forms,liststyle,pagebreak,preview,print,colorbutton,indentblock,newpage,language,save,selectall,smiley,scayt,wsc',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_ckeditor_config',
     ),
