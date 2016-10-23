@@ -185,7 +185,7 @@ modckeditor.loadForTVs = function () {
 
 
 MODx.loadRTE = function (id) {
-	if (modCKEditor.config && modCKEditor.config.resource && !modCKEditor.config.resource.richtext) {
+	if (modCKEditor && modCKEditor.config && modCKEditor.config.resource && !modCKEditor.config.resource.richtext) {
 		return false;
 	}
 	new modckeditor.ckeditor({}, {

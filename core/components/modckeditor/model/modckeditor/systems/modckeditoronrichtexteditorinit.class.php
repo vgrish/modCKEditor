@@ -8,9 +8,7 @@ class modCKEditorOnRichTextEditorInit extends modCKEditorPlugin
             return;
         }
 
-        /** @var modManagerController $controller */
-        $controller = &$this->modx->controller;
-        $this->modCKEditor->loadControllerJsCss($controller, array(
+        $this->modCKEditor->loadControllerJsCss($this->modx->controller, array(
             'css'      => true,
             'config'   => true,
             'tools'    => true,

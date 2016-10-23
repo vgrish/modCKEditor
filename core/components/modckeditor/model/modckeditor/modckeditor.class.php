@@ -120,28 +120,26 @@ class modCKEditor
         $config['connector_url'] = $this->config['connectorUrl'];
 
         foreach (array('resource', 'user') as $key) {
-            $object = $this->modx->getOption($key, $scriptProperties);
-            if (is_object($object) AND $object instanceof xPDOObject) {
-                $config[$key] = $object->toArray();
+            ${$key} = $this->modx->getOption($key, $scriptProperties);
+            if (is_object(${$key}) AND ${$key} instanceof xPDOObject) {
+                $config[$key] = ${$key}->toArray();
             }
-        }
-
-        if (!empty($set['css'])) {
-            $controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
         }
 
         if (!empty($set['config'])) {
             $controller->addHtml("
             <script type='text/javascript'>
-                Ext.ns(\"modckeditor\");
                 modCKEditor = {};
                 modCKEditor.config={$this->modx->toJSON($config)};
                 modCKEditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
                 Ext.onReady(function(){
                     modckeditor.loadForTVs();
-                }); 
-            </script>"
-            );
+                });
+            </script>");
+        }
+
+        if (!empty($set['css'])) {
+            $controller->addCss($this->config['cssUrl'] . 'mgr/main.css');
         }
 
         if (!empty($set['tools'])) {
