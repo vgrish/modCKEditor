@@ -116,50 +116,46 @@ $tmp = array(
         'xtype' => 'numberfield',
         'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_fillEmptyBlocks'        => array(
+    'ckeditor_fillEmptyBlocks'           => array(
         'value' => false,
         'xtype' => 'combo-boolean',
         'area'  => 'modckeditor_ckeditor_config',
     ),
-    'ckeditor_basicEntities'        => array(
+    'ckeditor_basicEntities'             => array(
         'value' => false,
         'xtype' => 'combo-boolean',
         'area'  => 'modckeditor_ckeditor_config',
     ),
 
 
-
-    'source_default' => array(
+    'source_default'  => array(
         'value' => '0',
         'xtype' => 'modx-combo-source',
         'area'  => 'modckeditor_main',
     ),
-
+    'types_variables' => array(
+        'value' => '',
+        'xtype' => 'textarea',
+        'area'  => 'modckeditor_main',
+    ),
 
     //временные
-   /* 'assets_path'    => array(
-        'value' => '{base_path}modckeditor/assets/components/modckeditor/',
-        'xtype' => 'textfield',
-        'area'  => 'modckeditor_temp',
-    ),
-    'assets_url'     => array(
-        'value' => '/modckeditor/assets/components/modckeditor/',
-        'xtype' => 'textfield',
-        'area'  => 'modckeditor_temp',
-    ),
-    'core_path'      => array(
-        'value' => '{base_path}modckeditor/core/components/modckeditor/',
-        'xtype' => 'textfield',
-        'area'  => 'modckeditor_temp',
-    ),*/
+    /* 'assets_path'    => array(
+         'value' => '{base_path}modckeditor/assets/components/modckeditor/',
+         'xtype' => 'textfield',
+         'area'  => 'modckeditor_temp',
+     ),
+     'assets_url'     => array(
+         'value' => '/modckeditor/assets/components/modckeditor/',
+         'xtype' => 'textfield',
+         'area'  => 'modckeditor_temp',
+     ),
+     'core_path'      => array(
+         'value' => '{base_path}modckeditor/core/components/modckeditor/',
+         'xtype' => 'textfield',
+         'area'  => 'modckeditor_temp',
+     ),*/
 
-    /*
-	'some_setting' => array(
-		'xtype' => 'combo-boolean',
-		'value' => true,
-		'area' => 'modckeditor_main',
-	),
-	*/
 );
 
 foreach ($tmp as $k => $v) {

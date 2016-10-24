@@ -39,11 +39,54 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         $tmp->set('value', 1);
         $tmp->save();
 
+
+        /* setting */
+
+        $key = 'modckeditor_types_variables';
+        if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
+            $tmp = $modx->newObject('modSystemSetting');
+            $tmp->fromArray(array(
+                'key'       => $key,
+                'xtype'     => 'textarea',
+                'namespace' => 'modckeditor',
+                'area'      => 'modckeditor_main',
+                'editedon'  => null,
+            ), '', true, true);
+        }
+
+        $value = array(
+            'array' => array(
+                'toolbar',
+                'toolbarGroups',
+                'editorCompact',
+                'addExternalPlugins',
+                'addExternalSkin',
+                'addTemplates',
+            ),
+            'bool'  => array(
+                'entities',
+                'autoParagraph',
+                'toolbarCanCollapse',
+                'disableObjectResizing',
+                'disableNativeSpellChecker',
+                'enableModTemplates',
+                'fillEmptyBlocks',
+                'basicEntities'
+            ),
+            'int'   => array(
+                'enterMode',
+                'shiftEnterMode'
+            ),
+        );
+        
+        $tmp->set('value', json_encode($value, 1));
+        $tmp->save();
+
         break;
     case xPDOTransport::ACTION_UNINSTALL:
 
         /* core */
-        
+
         $key = 'which_editor';
         if ($tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
             $tmp->set('value', '');

@@ -14,6 +14,8 @@ class modCKEditor
     /** @var array $initialized */
     public $initialized = array();
 
+    public $typesVariables;
+
     /**
      * @param modX  $modx
      * @param array $config
@@ -108,7 +110,6 @@ class modCKEditor
         return $array;
     }
 
-
     public function loadControllerJsCss(
         modManagerController $controller,
         array $set = array(),
@@ -156,11 +157,13 @@ class modCKEditor
         return $output;
     }
 
-    public function getCKEditorConfig()
+    public function getEditorConfig()
     {
-        $prefix = 'modckeditor_ckeditor';
-        $config = array();
+        $config = array(
+            'baseHref' => $this->modx->getOption('site_url', null, '/', true),
+        );
 
+        $prefix = 'modckeditor_ckeditor';
         $q = $this->modx->newQuery('modSystemSetting');
         $q->where(array(
             'area' => "{$prefix}_config"
@@ -172,67 +175,59 @@ class modCKEditor
             }
         }
 
-        return (array)$config;
-    }
-
-
-    public function getEditorConfig()
-    {
-        $config = array_merge(array(
-            'baseHref' => $this->modx->getOption('site_url', null, '/', true),
-        ), $this->getCKEditorConfig());
-
-
-        /* list to array */
-        foreach (array(
-                     'contentsCss'
-                 ) as $key) {
-            if (isset($config[$key])) {
-                $config[$key] = $this->explodeAndClean($config[$key]);
-            }
-        }
-
-        /* json to array */
-        foreach (array(
-                     'toolbar',
-                     'toolbarGroups',
-                     'editorCompact',
-                     'addExternalPlugins',
-                     'addExternalSkin',
-                     'addTemplates',
-                 ) as $key) {
-            if (isset($config[$key])) {
-                $config[$key] = json_decode($config[$key], 1);
-            }
-        }
-
-        /* string to bool */
-        foreach (array(
-                     'entities',
-                     'autoParagraph',
-                     'toolbarCanCollapse',
-                     'disableObjectResizing',
-                     'disableNativeSpellChecker',
-                     'enableModTemplates',
-                     'fillEmptyBlocks',
-                     'basicEntities'
-                 ) as $key) {
-            if (isset($config[$key])) {
-                $config[$key] = (bool)$config[$key];
-            }
-        }
-
-        /* string to int */
-        foreach (array(
-                     'enterMode',
-                     'shiftEnterMode'
-                 ) as $key) {
-            if (isset($config[$key])) {
-                $config[$key] = (int)$config[$key];
-            }
+        foreach ($config as $key => $value) {
+            $config[$key] = $this->getValueVariable($key, $config);
         }
 
         return $config;
+    }
+
+    public function getTypesVariables($reload = false)
+    {
+        if (!$this->typesVariables OR $reload) {
+            $result = array();
+            $typesVariables = json_decode($this->getOption('types_variables', null), 1);
+            foreach ($typesVariables as $type => $variables) {
+                foreach ($variables as $key) {
+                    $result[$key] = $type;
+                }
+            }
+            $this->typesVariables = $result;
+        }
+
+        return $this->typesVariables;
+    }
+
+    public function getTypeVariable($key = '')
+    {
+        $typesVariables = $this->getTypesVariables();
+
+        return isset($typesVariables[$key]) ? $typesVariables[$key] : null;
+    }
+
+    public function getValueVariable($key = '', array $values = array())
+    {
+        if (!isset($values[$key])) {
+            return null;
+        }
+
+        $type = $this->getTypeVariable($key);
+        switch ($type) {
+            case 'array':
+                $value = json_decode($values[$key], 1);
+                break;
+            case 'bool':
+                $value = (bool)$values[$key];
+                break;
+            case 'int':
+                $value = (int)$values[$key];
+                break;
+            default:
+                $value = $values[$key];
+                break;
+        }
+
+        return $value;
     }
 
 }

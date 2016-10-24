@@ -3,7 +3,7 @@
 $plugins = array();
 
 $tmp = array(
-    'modCKEditorSystem' => array(
+    'modCKEditorSystem'    => array(
         'file'        => 'system',
         'description' => '',
         'events'      => array(
@@ -11,7 +11,7 @@ $tmp = array(
             'OnRichTextEditorRegister' => array('priority' => 0),
             'OnRichTextBrowserInit'    => array('priority' => 0),
         )
-    )
+    ),
 );
 
 foreach ($tmp as $k => $v) {
