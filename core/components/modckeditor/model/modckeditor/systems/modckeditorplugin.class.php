@@ -8,8 +8,7 @@ abstract class modCKEditorPlugin
     protected $modCKEditor;
     /** @var array $scriptProperties */
     protected $scriptProperties;
-    /** @var bool $initEditor */
-    public $initEditor = false;
+
 
     public function __construct(& $modx, &$scriptProperties)
     {
@@ -21,18 +20,7 @@ abstract class modCKEditorPlugin
             return;
         }
 
-        $this->initializeEditor();
-    }
-
-    public function initializeEditor()
-    {
-        $useEditor = $this->modx->getOption('use_editor', false);
-        $whichEditor = $this->modx->getOption('which_editor', '');
-        if ($useEditor AND $whichEditor == 'modckeditor') {
-            $this->initEditor = true;
-        }
-
-        return $this->initEditor;
+        $this->modCKEditor->initialize($this->modx->context->key);
     }
 
     abstract public function run();

@@ -166,6 +166,10 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	},
 
 	registerDrop: function (editor) {
+		if (!editor.container || !editor.container.$) {
+			return false;
+		}
+
 		var ddTarget = new Ext.Element(editor.container.$);
 		var ddTargetEl = ddTarget.dom;
 

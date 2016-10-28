@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.3-beta (28.10.2016)
+==============
+- Improved "setting"
+
 1.0.2-beta (23.10.2016)
 ==============
 - Remove "justify" from "removePlugins"

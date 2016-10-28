@@ -4,127 +4,159 @@ $settings = array();
 
 $tmp = array(
 
-    'ckeditor_skin'              => array(
+    /* CKEditor config */
+
+    'config_skin'              => array(
         'value' => 'flat',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
     ),
-    'ckeditor_language'          => array(
+    'config_language'          => array(
         'value' => 'ru',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
     ),
-    'ckeditor_allowedContent'    => array(
+    'config_allowedContent'    => array(
         'value' => '',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
     ),
-    'ckeditor_contentsCss'       => array(
-        'value' => '',
-        'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_uiColor'           => array(
+    'config_uiColor'           => array(
         'value' => '',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
     ),
-    'ckeditor_removePlugins'     => array(
-        'value' => 'autogrow,bidi,font,forms,liststyle,pagebreak,preview,print,colorbutton,indentblock,newpage,language,save,selectall,smiley,scayt,wsc',
+    'config_removePlugins'     => array(
+        'value' => '["autogrow","bidi","font","forms","liststyle","pagebreak","preview","print","colorbutton","indentblock","newpage","language","save","selectall","smiley","scayt","wsc"]',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
     ),
-    'ckeditor_toolbar'           => array(
-        'value' => '',
-        'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_toolbarGroups'     => array(
-        'value' => '[{"name":"document","groups":["mode","document","doctools"]},{"name":"clipboard","groups":["clipboard","undo"]},{"name":"editing","groups":["find","selection"]},{"name":"links"},{"name":"insert"},{"name":"forms"},"/",{"name":"basicstyles","groups":["basicstyles","cleanup"]},{"name":"paragraph","groups":["list","indent","blocks","align","bidi"]},{"name":"styles"},{"name":"colors"},{"name":"tools"},{"name":"others"},{"name":"about"}]',
-        'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_format_tags'       => array(
+    'config_format_tags'       => array(
         'value' => 'p;h1;h2;h3;h4;h5;h6;pre;div',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
     ),
-    'ckeditor_codeSnippet_theme' => array(
+    'config_codeSnippet_theme' => array(
         'value' => 'default',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
+    ),
+    'config_extraPlugins'      => array(
+        'value' => '["codesnippet","uploadimage","embed"]', //'pagecut'
+        'xtype' => 'textarea',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
     ),
 
-    'ckeditor_entities'                  => array(
+
+    'config_enterMode'      => array(
+        'value' => 2,
+        'xtype' => 'numberfield',
+        'area'  => 'modckeditor_config',
+        'type'  => 'integer'
+    ),
+    'config_shiftEnterMode' => array(
+        'value' => 2,
+        'xtype' => 'numberfield',
+        'area'  => 'modckeditor_config',
+        'type'  => 'integer'
+    ),
+
+
+    'config_entities'                  => array(
         'xtype' => 'combo-boolean',
         'value' => false,
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'boolean'
     ),
-    'ckeditor_toolbarCanCollapse'        => array(
+    'config_toolbarCanCollapse'        => array(
         'xtype' => 'combo-boolean',
         'value' => true,
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'boolean'
     ),
-    'ckeditor_disableObjectResizing'     => array(
+    'config_disableObjectResizing'     => array(
         'xtype' => 'combo-boolean',
         'value' => true,
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'boolean'
     ),
-    'ckeditor_disableNativeSpellChecker' => array(
+    'config_disableNativeSpellChecker' => array(
         'xtype' => 'combo-boolean',
         'value' => false,
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'boolean'
     ),
-    'ckeditor_editorCompact'             => array(
+    'config_fillEmptyBlocks'           => array(
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area'  => 'modckeditor_config',
+        'type'  => 'boolean'
+    ),
+    'config_basicEntities'             => array(
+        'value' => false,
+        'xtype' => 'combo-boolean',
+        'area'  => 'modckeditor_config',
+        'type'  => 'boolean'
+    ),
+    'config_enableModTemplates'        => array(
+        'value' => true,
+        'xtype' => 'combo-boolean',
+        'area'  => 'modckeditor_config',
+        'type'  => 'boolean'
+    ),
+
+
+    'config_toolbar'       => array(
+        'value' => '',
+        'xtype' => 'textarea',
+        'area'  => 'modckeditor_config',
+        'type'  => 'array'
+    ),
+    'config_toolbarGroups' => array(
+        'value' => '[{"name":"document","groups":["mode","document","doctools"]},{"name":"clipboard","groups":["clipboard","undo"]},{"name":"editing","groups":["find","selection"]},{"name":"links"},{"name":"insert"},{"name":"forms"},"/",{"name":"basicstyles","groups":["basicstyles","cleanup"]},{"name":"paragraph","groups":["list","indent","blocks","align","bidi"]},{"name":"styles"},{"name":"colors"},{"name":"tools"},{"name":"others"},{"name":"about"}]',
+        'xtype' => 'textarea',
+        'area'  => 'modckeditor_config',
+        'type'  => 'string'
+    ),
+    'config_contentsCss'   => array(
+        'value' => '',
+        'xtype' => 'textarea',
+        'area'  => 'modckeditor_config',
+        'type'  => 'array'
+    ),
+    'config_editorCompact' => array(
         'value' => '{"tvs":true,"content":false}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'array'
     ),
-    'ckeditor_extraPlugins'              => array(
-        'value' => 'codesnippet,uploadimage,embed', //'pagecut'
-        'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_addExternalPlugins'        => array(
-        'value' => '{}',
+
+    'config_addExternalPlugins' => array(
+        'value' => '',
         //'value' => '{"pagecut":"/components/modckeditor/vendor/plugins/pagecut/pagecut/plugin.js"}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'array'
     ),
-    'ckeditor_addExternalSkin'           => array(
+    'config_addExternalSkin'    => array(
         'value' => '{"flat":"/components/modckeditor/vendor/skins/flat/"}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'array'
     ),
-    'ckeditor_addTemplates'              => array(
+    'config_addTemplates'       => array(
         'value' => '{"default":"/components/modckeditor/vendor/ckeditor/plugins/templates/templates/default.js"}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_enableModTemplates'        => array(
-        'value' => true,
-        'xtype' => 'combo-boolean',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_enterMode'                 => array(
-        'value' => 2,
-        'xtype' => 'numberfield',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_shiftEnterMode'            => array(
-        'value' => 2,
-        'xtype' => 'numberfield',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_fillEmptyBlocks'           => array(
-        'value' => false,
-        'xtype' => 'combo-boolean',
-        'area'  => 'modckeditor_ckeditor_config',
-    ),
-    'ckeditor_basicEntities'             => array(
-        'value' => false,
-        'xtype' => 'combo-boolean',
-        'area'  => 'modckeditor_ckeditor_config',
+        'area'  => 'modckeditor_config',
+        'type'  => 'array'
     ),
 
 

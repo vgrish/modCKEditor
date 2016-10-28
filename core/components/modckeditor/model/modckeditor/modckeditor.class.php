@@ -14,7 +14,8 @@ class modCKEditor
     /** @var array $initialized */
     public $initialized = array();
 
-    public $typesVariables;
+    /** @var bool $initEditor */
+    public $initEditor = false;
 
     /**
      * @param modX  $modx
@@ -80,6 +81,66 @@ class modCKEditor
     }
 
     /**
+     * @param string $key
+     *
+     * @return null
+     */
+    public function getTypeVariable($key = '')
+    {
+        return isset($this->config['types_variables'][$key]) ? $this->config['types_variables'][$key] : null;
+    }
+
+    /**
+     * @param array $config
+     */
+    public function setConfig(array $config = array())
+    {
+        $this->config = array_merge($this->config, array(), $config);
+
+        if (!isset($this->config['types_variables'])) {
+            $tmp = array();
+            $rows = json_decode($this->getOption('types_variables', null), 1);
+            foreach ($rows as $type => $variables) {
+                foreach ($variables as $key) {
+                    $tmp[$key] = $type;
+                }
+            }
+            $this->config['types_variables'] = $tmp;
+        }
+    }
+
+
+    /**
+     * @param string $ctx
+     * @param array  $config
+     *
+     * @return bool|mixed
+     */
+    public function initialize($ctx = 'web', array $config = array())
+    {
+        if (isset($this->initialized[$ctx])) {
+            return $this->initialized[$ctx];
+        }
+
+        $initialize = false;
+        $this->modx->error->reset();
+        $this->setConfig(array_merge($config, array('ctx' => $ctx)));
+
+        if ((!defined('MODX_API_MODE') OR !MODX_API_MODE)) {
+
+            $useEditor = $this->modx->getOption('use_editor', false);
+            $whichEditor = $this->modx->getOption('which_editor', '');
+            if ($useEditor AND $whichEditor == 'modckeditor') {
+                $initialize = true;
+            }
+        }
+
+        $this->initialized[$ctx] = $this->initEditor = $initialize;
+
+        return $initialize;
+    }
+
+    /**
      * @param        $array
      * @param string $delimiter
      *
@@ -110,6 +171,143 @@ class modCKEditor
         return $array;
     }
 
+    /**
+     * @param array $array1
+     * @param array $array2
+     *
+     * @return array
+     */
+    public function array_merge_recursive_ex(array & $array1 = array(), array & $array2 = array())
+    {
+        $merged = $array1;
+
+        foreach ($array2 as $key => & $value) {
+            if (is_array($value) AND isset($merged[$key]) AND is_array($merged[$key])) {
+                $merged[$key] = $this->array_merge_recursive_ex($merged[$key], $value);
+            } else {
+                if (is_numeric($key)) {
+                    if (!in_array($value, $merged)) {
+                        $merged[] = $value;
+                    }
+                } else {
+                    $merged[$key] = $value;
+                }
+            }
+        }
+
+        return $merged;
+    }
+
+
+    /**
+     * @param array $variables
+     *
+     * @return array
+     */
+    public function prepareCKEditorConfig(array $variables = array())
+    {
+        $config = array();
+
+        /* merge variables */
+        foreach ($variables as $key => $values) {
+            foreach ($values as $value) {
+                $tmp = json_decode($value, true);
+                if (empty($tmp)) {
+                    $tmp = $value;
+                }
+                if (isset($config[$key]) AND is_array($tmp)) {
+                    $config[$key] = $this->array_merge_recursive_ex($config[$key], $tmp);
+                } else {
+                    $config[$key] = $tmp;
+                }
+            }
+        }
+
+        /* change type variables */
+        foreach ($config as $key => $value) {
+            $type = $this->getTypeVariable($key);
+
+            switch ($type) {
+                case 'string':
+                    if (is_array($value)) {
+                        $value = implode(',', $value);
+                    }
+                    $value = (string)$value;
+                    break;
+                case 'integer':
+                    if (is_array($value)) {
+                        $value = end($value);
+                    }
+                    $value = (integer)$value;
+                    break;
+                case 'boolean':
+                    if (is_array($value)) {
+                        $value = end($value);
+                    }
+                    $value = (boolean)$value;
+                    break;
+                case 'array':
+                    break;
+                default:
+                    break;
+            }
+
+            $config[$key] = $value;
+        }
+
+        return $config;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getCKEditorConfig()
+    {
+        $config = array();
+
+        $q = $this->modx->newQuery('modSystemSetting');
+        $q->where(array(
+            'key:LIKE'      => "%config_%",
+            'AND:area:LIKE' => "%ckeditor_config%",
+        ));
+        $q->select('key,area');
+        if ($q->prepare() AND $q->stmt->execute()) {
+            while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
+                $key = str_replace($row['area'] . '_', '', $row['key']);
+                $value = $this->modx->getOption($row['key'], null);
+                if (isset($config[$key])) {
+                    $config[$key][] = $value;
+                } else {
+                    $config[$key] = array($value);
+                }
+            }
+        }
+        $config = $this->prepareCKEditorConfig($config);
+
+        return $config;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEditorConfig()
+    {
+        $config = array(
+            'baseHref' => $this->modx->getOption('site_url', null, '/', true),
+        );
+        $config = array_merge($config, $this->getCKEditorConfig());
+
+        return $config;
+    }
+
+    /**
+     * @param modManagerController $controller
+     * @param array                $set
+     * @param array                $scriptProperties
+     *
+     * @return string
+     */
     public function loadControllerJsCss(
         modManagerController $controller,
         array $set = array(),
@@ -121,6 +319,7 @@ class modCKEditor
         $config['connector_url'] = $this->config['connectorUrl'];
 
         foreach (array('resource', 'user') as $key) {
+            /** @var xPDOObject $resource */
             ${$key} = $this->modx->getOption($key, $scriptProperties);
             if (is_object(${$key}) AND ${$key} instanceof xPDOObject) {
                 $config[$key] = ${$key}->toArray();
@@ -157,77 +356,5 @@ class modCKEditor
         return $output;
     }
 
-    public function getEditorConfig()
-    {
-        $config = array(
-            'baseHref' => $this->modx->getOption('site_url', null, '/', true),
-        );
-
-        $prefix = 'modckeditor_ckeditor';
-        $q = $this->modx->newQuery('modSystemSetting');
-        $q->where(array(
-            'area' => "{$prefix}_config"
-        ));
-        $q->select('key');
-        if ($q->prepare() AND $q->stmt->execute()) {
-            while ($key = $q->stmt->fetch(PDO::FETCH_COLUMN)) {
-                $config[str_replace("{$prefix}_", '', $key)] = $this->modx->getOption($key, null);
-            }
-        }
-
-        foreach ($config as $key => $value) {
-            $config[$key] = $this->getValueVariable($key, $config);
-        }
-
-        return $config;
-    }
-
-    public function getTypesVariables($reload = false)
-    {
-        if (!$this->typesVariables OR $reload) {
-            $result = array();
-            $typesVariables = json_decode($this->getOption('types_variables', null), 1);
-            foreach ($typesVariables as $type => $variables) {
-                foreach ($variables as $key) {
-                    $result[$key] = $type;
-                }
-            }
-            $this->typesVariables = $result;
-        }
-
-        return $this->typesVariables;
-    }
-
-    public function getTypeVariable($key = '')
-    {
-        $typesVariables = $this->getTypesVariables();
-
-        return isset($typesVariables[$key]) ? $typesVariables[$key] : null;
-    }
-
-    public function getValueVariable($key = '', array $values = array())
-    {
-        if (!isset($values[$key])) {
-            return null;
-        }
-
-        $type = $this->getTypeVariable($key);
-        switch ($type) {
-            case 'array':
-                $value = json_decode($values[$key], 1);
-                break;
-            case 'bool':
-                $value = (bool)$values[$key];
-                break;
-            case 'int':
-                $value = (int)$values[$key];
-                break;
-            default:
-                $value = $values[$key];
-                break;
-        }
-
-        return $value;
-    }
 
 }

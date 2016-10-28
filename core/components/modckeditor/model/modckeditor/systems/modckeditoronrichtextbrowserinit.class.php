@@ -2,10 +2,10 @@
 
 class modCKEditorOnRichTextBrowserInit extends modCKEditorPlugin
 {
-    
+
     public function run()
     {
-        if (!$this->initEditor) {
+        if (!$this->modCKEditor->initEditor) {
             return;
         }
 

@@ -40,8 +40,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         $tmp->save();
 
 
-        /* setting */
-
+        /* setting types_variables */
         $key = 'modckeditor_types_variables';
         if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
             $tmp = $modx->newObject('modSystemSetting');
@@ -55,30 +54,41 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         }
 
         $value = array(
-            'array' => array(
-                'toolbar',
-                'toolbarGroups',
-                'editorCompact',
-                'addExternalPlugins',
-                'addExternalSkin',
-                'addTemplates',
+            'string'  => array(
+                'skin',
+                'language',
+                'allowedContent',
+                'uiColor',
+                'removePlugins',
+                'format_tags',
+                'codeSnippet_theme',
+                'extraPlugins',
             ),
-            'bool'  => array(
+            'integer' => array(
+                'enterMode',
+                'shiftEnterMode'
+            ),
+            'boolean' => array(
                 'entities',
                 'autoParagraph',
                 'toolbarCanCollapse',
                 'disableObjectResizing',
                 'disableNativeSpellChecker',
-                'enableModTemplates',
                 'fillEmptyBlocks',
-                'basicEntities'
+                'basicEntities',
+                'enableModTemplates',
             ),
-            'int'   => array(
-                'enterMode',
-                'shiftEnterMode'
+            'array'   => array(
+                'toolbar',
+                'toolbarGroups',
+                'contentsCss',
+                'editorCompact',
+                'addExternalPlugins',
+                'addExternalSkin',
+                'addTemplates',
             ),
         );
-        
+
         $tmp->set('value', json_encode($value, 1));
         $tmp->save();
 
