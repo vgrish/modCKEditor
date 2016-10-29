@@ -49,7 +49,7 @@ $tmp = array(
         'type'  => 'string'
     ),
     'config_extraPlugins'      => array(
-        'value' => '["codesnippet","uploadimage","embed"]', //'pagecut'
+        'value' => '["codesnippet","uploadimage","image2","embed"]',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_config',
         'type'  => 'string'
@@ -78,7 +78,7 @@ $tmp = array(
     ),
     'config_toolbarCanCollapse'        => array(
         'xtype' => 'combo-boolean',
-        'value' => true,
+        'value' => false,
         'area'  => 'modckeditor_config',
         'type'  => 'boolean'
     ),
@@ -165,7 +165,7 @@ $tmp = array(
         'xtype' => 'modx-combo-source',
         'area'  => 'modckeditor_main',
     ),
-    'types_variables' => array(
+    'config_variables' => array(
         'value' => '',
         'xtype' => 'textarea',
         'area'  => 'modckeditor_main',

@@ -40,8 +40,8 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
         $tmp->save();
 
 
-        /* setting types_variables */
-        $key = 'modckeditor_types_variables';
+        /* setting config_variables */
+        $key = 'modckeditor_config_variables';
         if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
             $tmp = $modx->newObject('modSystemSetting');
             $tmp->fromArray(array(

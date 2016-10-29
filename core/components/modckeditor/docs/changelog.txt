@@ -1,5 +1,10 @@
 Changelog for modCKEditor
 
+1.0.4-beta (29.10.2016)
+==============
+- Improved "main class"
+- Add "lexicon"
+
 1.0.3-beta (28.10.2016)
 ==============
 - Improved "setting"

@@ -87,7 +87,7 @@ class modCKEditor
      */
     public function getTypeVariable($key = '')
     {
-        return isset($this->config['types_variables'][$key]) ? $this->config['types_variables'][$key] : null;
+        return isset($this->config['config_variables'][$key]) ? $this->config['config_variables'][$key] : null;
     }
 
     /**
@@ -97,15 +97,15 @@ class modCKEditor
     {
         $this->config = array_merge($this->config, array(), $config);
 
-        if (!isset($this->config['types_variables'])) {
+        if (!isset($this->config['config_variables'])) {
             $tmp = array();
-            $rows = json_decode($this->getOption('types_variables', null), 1);
+            $rows = json_decode($this->getOption('config_variables', null), 1);
             foreach ($rows as $type => $variables) {
                 foreach ($variables as $key) {
                     $tmp[$key] = $type;
                 }
             }
-            $this->config['types_variables'] = $tmp;
+            $this->config['config_variables'] = $tmp;
         }
     }
 
@@ -198,15 +198,30 @@ class modCKEditor
         return $merged;
     }
 
-
     /**
-     * @param array $variables
-     *
      * @return array
      */
-    public function prepareCKEditorConfig(array $variables = array())
+    public function getCKEditorConfig()
     {
-        $config = array();
+        $config = $variables = array();
+
+        $q = $this->modx->newQuery('modSystemSetting');
+        $q->where(array(
+            'key:LIKE'      => "%config_%",
+            'AND:area:LIKE' => "%ckeditor_config%",
+        ));
+        $q->select('key,area');
+        if ($q->prepare() AND $q->stmt->execute()) {
+            while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
+                $key = str_replace($row['area'] . '_', '', $row['key']);
+                $value = $this->modx->getOption($row['key'], null);
+                if (isset($variables[$key])) {
+                    $variables[$key][] = $value;
+                } else {
+                    $variables[$key] = array($value);
+                }
+            }
+        }
 
         /* merge variables */
         foreach ($variables as $key => $values) {
@@ -254,36 +269,6 @@ class modCKEditor
 
             $config[$key] = $value;
         }
-
-        return $config;
-    }
-
-
-    /**
-     * @return array
-     */
-    public function getCKEditorConfig()
-    {
-        $config = array();
-
-        $q = $this->modx->newQuery('modSystemSetting');
-        $q->where(array(
-            'key:LIKE'      => "%config_%",
-            'AND:area:LIKE' => "%ckeditor_config%",
-        ));
-        $q->select('key,area');
-        if ($q->prepare() AND $q->stmt->execute()) {
-            while ($row = $q->stmt->fetch(PDO::FETCH_ASSOC)) {
-                $key = str_replace($row['area'] . '_', '', $row['key']);
-                $value = $this->modx->getOption($row['key'], null);
-                if (isset($config[$key])) {
-                    $config[$key][] = $value;
-                } else {
-                    $config[$key] = array($value);
-                }
-            }
-        }
-        $config = $this->prepareCKEditorConfig($config);
 
         return $config;
     }
