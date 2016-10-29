@@ -4,6 +4,7 @@ Changelog for modCKEditor
 ==============
 - Improved "main class"
 - Add "lexicon"
+- Add "modCKEditorOnLoadControllerJsCss" event
 
 1.0.3-beta (28.10.2016)
 ==============

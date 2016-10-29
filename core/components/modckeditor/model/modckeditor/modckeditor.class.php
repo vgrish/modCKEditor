@@ -99,7 +99,7 @@ class modCKEditor
 
         if (!isset($this->config['config_variables'])) {
             $tmp = array();
-            $rows = json_decode($this->getOption('config_variables', null), 1);
+            $rows = json_decode($this->getOption('config_variables', null), true);
             foreach ($rows as $type => $variables) {
                 foreach ($variables as $key) {
                     $tmp[$key] = $type;
@@ -230,6 +230,13 @@ class modCKEditor
                 if (empty($tmp)) {
                     $tmp = $value;
                 }
+                if ($tmp == '') {
+                    continue;
+                }
+                if (!is_array($tmp)) {
+                    $tmp = array($tmp);
+                }
+
                 if (isset($config[$key]) AND is_array($tmp)) {
                     $config[$key] = $this->array_merge_recursive_ex($config[$key], $tmp);
                 } else {
@@ -338,8 +345,109 @@ class modCKEditor
 
         $controller->addLexiconTopic('modckeditor:default');
 
+        $this->modx->invokeEvent('modCKEditorOnLoadControllerJsCss', array('controller' => &$controller));
+
         return $output;
     }
 
+    /**
+     * @param $type
+     * @param $name
+     *
+     * @return mixed
+     */
+    public function addConfigVariable($type, $name)
+    {
+        $key = 'modckeditor_config_variables';
+        $variables = $this->_getSetting($key);
+        $variables = json_decode($variables, true);
+
+        $type = strtolower($type);
+
+        if (isset($variables[$type])) {
+            $variables[$type][] = $name;
+        } else {
+            $variables[$type] = array($name);
+        }
+
+        $variables[$type] = array_keys(array_flip($variables[$type]));
+        $variables[$type] = array_diff($variables[$type], array(''));
+
+        return $this->_updateSetting($key, json_encode($variables, true));
+    }
+
+    /**
+     * @param $type
+     * @param $name
+     *
+     * @return mixed
+     */
+    public function removeConfigVariable($type, $name)
+    {
+        $key = 'modckeditor_config_variables';
+        $variables = $this->_getSetting($key);
+        $variables = json_decode($variables, true);
+
+        $type = strtolower($type);
+        if (isset($variables[$type])) {
+            $variables[$type] = array_flip($variables[$type]);
+            unset($variables[$type][$name]);
+            $variables[$type] = array_flip($variables[$type]);
+            sort($variables[$type]);
+        }
+
+        return $this->_updateSetting($key, json_encode($variables, true));
+    }
+
+    /**
+     * @param       $key
+     * @param array $row
+     *
+     * @return mixed
+     */
+    protected function _getSetting($key, array $row = array())
+    {
+        if (!$tmp = $this->modx->getObject('modSystemSetting', array('key' => $key))) {
+            $tmp = $this->modx->newObject('modSystemSetting');
+
+            $tmp->fromArray(array_merge(array(
+                'xtype'     => 'textarea',
+                'namespace' => 'modckeditor',
+                'area'      => 'modckeditor_main'
+            ), $row), '', true, true);
+
+            $tmp->set('key', $key);
+            $tmp->set('value', '');
+            $tmp->save();
+        }
+
+        return $tmp->get('value');
+    }
+
+    /**
+     * @param       $key
+     * @param       $value
+     * @param array $row
+     *
+     * @return mixed
+     */
+    protected function _updateSetting($key, $value, array $row = array())
+    {
+        if (!$tmp = $this->modx->getObject('modSystemSetting', array('key' => $key))) {
+            $tmp = $this->modx->newObject('modSystemSetting');
+
+            $tmp->fromArray(array_merge(array(
+                'xtype'     => 'textarea',
+                'namespace' => 'modckeditor',
+                'area'      => 'modckeditor_main'
+            ), $row), '', true, true);
+
+            $tmp->set('key', $key);
+        }
+        $tmp->set('value', $value);
+        $tmp->save();
+
+        return $tmp->get('value');
+    }
 
 }

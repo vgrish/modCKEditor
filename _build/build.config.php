@@ -34,6 +34,7 @@ define('MODX_ASSETS_URL', MODX_BASE_URL . 'assets/');
 define('BUILD_SETTING_UPDATE', true);
 define('BUILD_PLUGIN_UPDATE', true);
 define('BUILD_PLUGIN_STATIC', false);
+define('BUILD_EVENT_UPDATE', true);
 
 $BUILD_RESOLVERS = array(
     'extension',
