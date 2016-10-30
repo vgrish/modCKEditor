@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.5-beta (30.10.2016)
+==============
+- Add "addConfigSetting"
+
 1.0.4-beta (29.10.2016)
 ==============
 - Improved "main class"

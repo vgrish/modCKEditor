@@ -351,6 +351,39 @@ class modCKEditor
     }
 
     /**
+     * @param array $row
+     * @param bool  $addVariable
+     *
+     * @return mixed
+     */
+    public function addConfigSetting(array $row = array(), $addVariable = true)
+    {
+        $row = array_merge(array(
+            'key'   => 'modckeditor_undefined_undefined',
+            'area'  => 'modckeditor_undefined',
+            'type'  => 'undefined',
+            'value' => ''
+        ), $row);
+
+        $variable = str_replace($row['area'] . '_', '', $row['key']);
+        $key = $row['area'] . '_' . $variable;
+
+        if ($addVariable) {
+            $this->addConfigVariable($row['type'], $variable);
+        }
+
+        $value = $this->_getSetting($key, $row);
+        $value = json_decode($value, true);
+        if (is_array($value)) {
+            $value = $this->array_merge_recursive_ex($value, $row['value']);
+        } else {
+            $value = $row['value'];
+        }
+
+        return $this->_updateSetting($key, json_encode($value, true));
+    }
+
+    /**
      * @param $type
      * @param $name
      *
@@ -407,6 +440,12 @@ class modCKEditor
      */
     protected function _getSetting($key, array $row = array())
     {
+        if (strlen($key) > 50) {
+            $this->modx->log(modX::LOG_LEVEL_ERROR, "<b>{$key}</b> length > 50");
+
+            return false;
+        }
+
         if (!$tmp = $this->modx->getObject('modSystemSetting', array('key' => $key))) {
             $tmp = $this->modx->newObject('modSystemSetting');
 
@@ -433,6 +472,12 @@ class modCKEditor
      */
     protected function _updateSetting($key, $value, array $row = array())
     {
+        if (strlen($key) > 50) {
+            $this->modx->log(modX::LOG_LEVEL_ERROR, "<b>{$key}</b> length > 50");
+
+            return false;
+        }
+
         if (!$tmp = $this->modx->getObject('modSystemSetting', array('key' => $key))) {
             $tmp = $this->modx->newObject('modSystemSetting');
 
