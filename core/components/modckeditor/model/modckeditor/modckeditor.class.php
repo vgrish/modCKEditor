@@ -69,8 +69,8 @@ class modCKEditor
                 $option = $config[$key];
             } elseif (array_key_exists($key, $this->config)) {
                 $option = $this->config[$key];
-            } elseif (array_key_exists("{$this->namespace}_{$key}", $this->modx->config)) {
-                $option = $this->modx->getOption("{$this->namespace}_{$key}");
+            } elseif (array_key_exists("mcked_{$key}", $this->modx->config)) {
+                $option = $this->modx->getOption("mcked_{$key}");
             }
         }
         if ($skipEmpty AND empty($option)) {
@@ -207,8 +207,8 @@ class modCKEditor
 
         $q = $this->modx->newQuery('modSystemSetting');
         $q->where(array(
-            'key:LIKE'      => "%config_%",
-            'AND:area:LIKE' => "%ckeditor_config%",
+            'key:LIKE'      => "%_cfg_%",
+            'AND:area:LIKE' => "%_cfg%",
         ));
         $q->select('key,area');
         if ($q->prepare() AND $q->stmt->execute()) {
@@ -359,8 +359,8 @@ class modCKEditor
     public function addConfigSetting(array $row = array(), $addVariable = true)
     {
         $row = array_merge(array(
-            'key'   => 'modckeditor_undefined_undefined',
-            'area'  => 'modckeditor_undefined',
+            'key'   => 'mcked_undefined_undefined',
+            'area'  => 'mcked_undefined',
             'type'  => 'undefined',
             'value' => ''
         ), $row);
@@ -374,13 +374,18 @@ class modCKEditor
 
         $value = $this->_getSetting($key, $row);
         $value = json_decode($value, true);
+
         if (is_array($value)) {
             $value = $this->array_merge_recursive_ex($value, $row['value']);
         } else {
             $value = $row['value'];
         }
 
-        return $this->_updateSetting($key, json_encode($value, true));
+        if (is_array($value)) {
+            $value = json_encode($value, true);
+        }
+
+        return $this->_updateSetting($key, $value);
     }
 
     /**
@@ -391,7 +396,7 @@ class modCKEditor
      */
     public function addConfigVariable($type, $name)
     {
-        $key = 'modckeditor_config_variables';
+        $key = 'mcked_config_variables';
         $variables = $this->_getSetting($key);
         $variables = json_decode($variables, true);
 
@@ -417,7 +422,7 @@ class modCKEditor
      */
     public function removeConfigVariable($type, $name)
     {
-        $key = 'modckeditor_config_variables';
+        $key = 'mcked_config_variables';
         $variables = $this->_getSetting($key);
         $variables = json_decode($variables, true);
 
@@ -452,7 +457,7 @@ class modCKEditor
             $tmp->fromArray(array_merge(array(
                 'xtype'     => 'textarea',
                 'namespace' => 'modckeditor',
-                'area'      => 'modckeditor_main'
+                'area'      => 'mcked_main'
             ), $row), '', true, true);
 
             $tmp->set('key', $key);
@@ -484,7 +489,7 @@ class modCKEditor
             $tmp->fromArray(array_merge(array(
                 'xtype'     => 'textarea',
                 'namespace' => 'modckeditor',
-                'area'      => 'modckeditor_main'
+                'area'      => 'mcked_main'
             ), $row), '', true, true);
 
             $tmp->set('key', $key);

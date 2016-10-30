@@ -188,7 +188,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			},
 			file: function (path, type) {
 				if (type) {
-					var element = '<' + type + ' src="' + path + '" controls="">';
+					var element = '<' + type + ' src="/' + path + '" controls="">';
 					editor.insertHtml(element);
 					editor.focus();
 				}

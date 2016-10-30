@@ -31,12 +31,6 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'https://github.com/vgrish/skin-ckeditor-flat/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/modckeditor/vendor/skins/'
             ),
-            /*array(
-                'pagecut',
-                'pagecut',
-                'https://github.com/artygrand/CKEditor-pagecut-plugin/archive/master.zip',
-                MODX_ASSETS_PATH . 'components/modckeditor/vendor/plugins/'
-            ),*/
         );
 
         foreach ($vendors as $vendor) {
@@ -52,7 +46,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
             if (file_exists($path . '.' . $name)) {
                 $modx->log(modX::LOG_LEVEL_INFO, "Trying to delete old <b>{$name}</b> files. Please wait...");
-                $cacheManager->deleteTree($path,
+                $cacheManager->deleteTree($path . $name . '/',
                     array_merge(array('deleteTop' => false, 'skipDirs' => false, 'extensions' => array())));
             }
 

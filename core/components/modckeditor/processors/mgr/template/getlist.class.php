@@ -14,7 +14,7 @@ class modCKEditorTemplateGetListProcessor extends modObjectGetListProcessor
             'category_name' => 'Category.category',
         ));
 
-        $categories = $this->modx->getOption('modckeditor_template_categories', null, '');
+        $categories = $this->modx->getOption('mcked_template_categories', null, '');
         $categories = array_map('trim', explode(',', $categories));
         if (!empty($categories)) {
             $c->where(array(

@@ -41,14 +41,14 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
 
 
         /* setting config_variables */
-        $key = 'modckeditor_config_variables';
+        $key = 'mcked_config_variables';
         if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
             $tmp = $modx->newObject('modSystemSetting');
             $tmp->fromArray(array(
                 'key'       => $key,
                 'xtype'     => 'textarea',
                 'namespace' => 'modckeditor',
-                'area'      => 'modckeditor_main',
+                'area'      => 'mcked_main',
                 'editedon'  => null,
             ), '', true, true);
         }
@@ -108,6 +108,8 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             $tmp->set('value', 0);
             $tmp->save();
         }
+
+        $modx->removeCollection('modSystemSetting', array('namespace' => 'modckeditor'));
 
         break;
 }

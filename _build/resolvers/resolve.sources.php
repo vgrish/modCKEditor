@@ -47,7 +47,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             $source->set('properties', $default);
         }
         $source->save();
-        if ($setting = $modx->getObject('modSystemSetting', array('key' => 'modckeditor_source_default'))) {
+        if ($setting = $modx->getObject('modSystemSetting', array('key' => 'mcked_source_default'))) {
             if (!$setting->get('value')) {
                 $setting->set('value', $source->get('id'));
                 $setting->save();

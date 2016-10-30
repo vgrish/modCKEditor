@@ -6,186 +6,184 @@ $tmp = array(
 
     /* CKEditor config */
 
-    'config_skin'              => array(
+    'cfg_skin'              => array(
         'value' => 'flat',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_language'          => array(
+    'cfg_language'          => array(
         'value' => 'ru',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_allowedContent'    => array(
+    'cfg_allowedContent'    => array(
         'value' => '',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_uiColor'           => array(
+    'cfg_uiColor'           => array(
         'value' => '',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_removePlugins'     => array(
+    'cfg_removePlugins'     => array(
         'value' => '["autogrow","bidi","font","forms","liststyle","pagebreak","preview","print","colorbutton","indentblock","newpage","language","save","selectall","smiley","scayt","wsc"]',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_format_tags'       => array(
+    'cfg_format_tags'       => array(
         'value' => 'p;h1;h2;h3;h4;h5;h6;pre;div',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_codeSnippet_theme' => array(
+    'cfg_codeSnippet_theme' => array(
         'value' => 'default',
         'xtype' => 'textfield',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_extraPlugins'      => array(
-        'value' => '["codesnippet","uploadimage","image2","embed"]',
+    'cfg_extraPlugins'      => array(
+        'value' => '["codesnippet","uploadimage","image2","embed","lineutils","widget"]',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-
-
-    'config_enterMode'      => array(
+    'cfg_enterMode'      => array(
         'value' => 2,
         'xtype' => 'numberfield',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'integer'
     ),
-    'config_shiftEnterMode' => array(
+    'cfg_shiftEnterMode' => array(
         'value' => 2,
         'xtype' => 'numberfield',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'integer'
     ),
 
 
-    'config_entities'                  => array(
+    'cfg_entities'                  => array(
         'xtype' => 'combo-boolean',
         'value' => false,
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
-    'config_toolbarCanCollapse'        => array(
+    'cfg_toolbarCanCollapse'        => array(
         'xtype' => 'combo-boolean',
         'value' => false,
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
-    'config_disableObjectResizing'     => array(
+    'cfg_disableObjectResizing'     => array(
         'xtype' => 'combo-boolean',
         'value' => true,
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
-    'config_disableNativeSpellChecker' => array(
+    'cfg_disableNativeSpellChecker' => array(
         'xtype' => 'combo-boolean',
         'value' => false,
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
-    'config_fillEmptyBlocks'           => array(
+    'cfg_fillEmptyBlocks'           => array(
         'value' => false,
         'xtype' => 'combo-boolean',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
-    'config_basicEntities'             => array(
+    'cfg_basicEntities'             => array(
         'value' => false,
         'xtype' => 'combo-boolean',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
-    'config_enableModTemplates'        => array(
+    'cfg_enableModTemplates'        => array(
         'value' => true,
         'xtype' => 'combo-boolean',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
 
 
-    'config_toolbar'       => array(
+    'cfg_toolbar'       => array(
         'value' => '',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
-    'config_toolbarGroups' => array(
+    'cfg_toolbarGroups' => array(
         'value' => '[{"name":"document","groups":["mode","document","doctools"]},{"name":"clipboard","groups":["clipboard","undo"]},{"name":"editing","groups":["find","selection"]},{"name":"links"},{"name":"insert"},{"name":"forms"},"/",{"name":"basicstyles","groups":["basicstyles","cleanup"]},{"name":"paragraph","groups":["list","indent","blocks","align","bidi"]},{"name":"styles"},{"name":"colors"},{"name":"tools"},{"name":"others"},{"name":"about"}]',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'config_contentsCss'   => array(
+    'cfg_contentsCss'   => array(
         'value' => '',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
-    'config_editorCompact' => array(
+    'cfg_editorCompact' => array(
         'value' => '{"tvs":true,"content":false}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
 
-    'config_addExternalPlugins' => array(
+    'cfg_addExternalPlugins' => array(
         'value' => '',
         //'value' => '{"pagecut":"/components/modckeditor/vendor/plugins/pagecut/pagecut/plugin.js"}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
-    'config_addExternalSkin'    => array(
+    'cfg_addExternalSkin'    => array(
         'value' => '{"flat":"/components/modckeditor/vendor/skins/flat/"}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
-    'config_addTemplates'       => array(
+    'cfg_addTemplates'       => array(
         'value' => '{"default":"/components/modckeditor/vendor/ckeditor/plugins/templates/templates/default.js"}',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_config',
+        'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
 
 
-    'source_default'  => array(
+    'source_default'   => array(
         'value' => '0',
         'xtype' => 'modx-combo-source',
-        'area'  => 'modckeditor_main',
+        'area'  => 'mcked_main',
     ),
     'config_variables' => array(
         'value' => '',
         'xtype' => 'textarea',
-        'area'  => 'modckeditor_main',
+        'area'  => 'mcked_main',
     ),
 
     //временные
     /* 'assets_path'    => array(
          'value' => '{base_path}modckeditor/assets/components/modckeditor/',
          'xtype' => 'textfield',
-         'area'  => 'modckeditor_temp',
+         'area'  => 'mcked_temp',
      ),
      'assets_url'     => array(
          'value' => '/modckeditor/assets/components/modckeditor/',
          'xtype' => 'textfield',
-         'area'  => 'modckeditor_temp',
+         'area'  => 'mcked_temp',
      ),
      'core_path'      => array(
          'value' => '{base_path}modckeditor/core/components/modckeditor/',
          'xtype' => 'textfield',
-         'area'  => 'modckeditor_temp',
+         'area'  => 'mcked_temp',
      ),*/
 
 );
@@ -195,8 +193,8 @@ foreach ($tmp as $k => $v) {
     $setting = $modx->newObject('modSystemSetting');
     $setting->fromArray(array_merge(
         array(
-            'key'       => 'modckeditor_' . $k,
-            'namespace' => PKG_NAME_LOWER,
+            'key'       => 'mcked_' . $k,
+            'namespace' => 'modckeditor',
         ), $v
     ), '', true, true);
 
