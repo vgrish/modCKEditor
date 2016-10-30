@@ -1,10 +1,13 @@
 Changelog for modCKEditor
 
+1.0.7-beta (31.10.2016)
+==============
+- Change "setting" resolver
+
 1.0.6-beta (30.10.2016)
 ==============
 - Change prefix "setting"
 - Add "lineutils","widget" to "extraPlugins"
-
 
 1.0.5-beta (30.10.2016)
 ==============

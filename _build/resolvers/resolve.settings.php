@@ -10,50 +10,25 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
     case xPDOTransport::ACTION_INSTALL:
     case xPDOTransport::ACTION_UPGRADE:
 
-        /* core */
-        $key = 'which_editor';
-        if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
-            $tmp = $modx->newObject('modSystemSetting');
-            $tmp->fromArray(array(
-                'key'       => $key,
-                'xtype'     => 'modx-combo-rte',
-                'namespace' => 'core',
-                'area'      => 'editor',
-                'editedon'  => null,
-            ), '', true, true);
-        }
-        $tmp->set('value', 'modckeditor');
-        $tmp->save();
+        $corePath = $modx->getOption('modckeditor_core_path', null,
+            $modx->getOption('core_path', null, MODX_CORE_PATH) . 'components/modckeditor/');
+        /** @var modCKEditor $modCKEditor */
+        $modCKEditor = $modx->getService(
+            'modckeditor',
+            'modCKEditor',
+            $corePath . 'model/modckeditor/',
+            array(
+                'core_path' => $corePath
+            )
+        );
 
-        $key = 'use_editor';
-        if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
-            $tmp = $modx->newObject('modSystemSetting');
-            $tmp->fromArray(array(
-                'key'       => $key,
-                'xtype'     => 'combo-boolean',
-                'namespace' => 'core',
-                'area'      => 'editor',
-                'editedon'  => null,
-            ), '', true, true);
-        }
-        $tmp->set('value', 1);
-        $tmp->save();
+        if (!$modCKEditor) {
+            $modx->log(modX::LOG_LEVEL_ERROR, '[mckedExtraPlugins] Could not load modCKEditor');
 
-
-        /* setting config_variables */
-        $key = 'mcked_config_variables';
-        if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
-            $tmp = $modx->newObject('modSystemSetting');
-            $tmp->fromArray(array(
-                'key'       => $key,
-                'xtype'     => 'textarea',
-                'namespace' => 'modckeditor',
-                'area'      => 'mcked_main',
-                'editedon'  => null,
-            ), '', true, true);
+            return false;
         }
 
-        $value = array(
+        $variables = array(
             'string'  => array(
                 'skin',
                 'language',
@@ -89,7 +64,64 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             ),
         );
 
-        $tmp->set('value', json_encode($value, 1));
+        foreach ($variables as $type => $row) {
+            foreach ($row as $name) {
+                $modCKEditor->addConfigVariable($type, $name);
+            }
+        }
+
+        //////
+        $settings = array(
+            array(
+                'key'   => 'extraPlugins',
+                'area'  => 'mcked_cfg',
+                'type'  => 'string',
+                'value' => array(
+                    'mod_resource_view'
+                )
+            ),
+            array(
+                'key'   => 'addExternalPlugins',
+                'area'  => 'mcked_cfg',
+                'type'  => 'array',
+                'value' => array(
+                    'mod_resource_view' => '/components/modckeditor/vendor/plugins/mod_resource_view/plugin.js'
+                )
+            ),
+        );
+
+        foreach ($settings as $row) {
+            //$modCKEditor->addConfigSetting($row);
+        }
+
+
+        /* core */
+        $key = 'which_editor';
+        if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
+            $tmp = $modx->newObject('modSystemSetting');
+            $tmp->fromArray(array(
+                'key'       => $key,
+                'xtype'     => 'modx-combo-rte',
+                'namespace' => 'core',
+                'area'      => 'editor',
+                'editedon'  => null,
+            ), '', true, true);
+        }
+        $tmp->set('value', 'modckeditor');
+        $tmp->save();
+
+        $key = 'use_editor';
+        if (!$tmp = $modx->getObject('modSystemSetting', array('key' => $key))) {
+            $tmp = $modx->newObject('modSystemSetting');
+            $tmp->fromArray(array(
+                'key'       => $key,
+                'xtype'     => 'combo-boolean',
+                'namespace' => 'core',
+                'area'      => 'editor',
+                'editedon'  => null,
+            ), '', true, true);
+        }
+        $tmp->set('value', 1);
         $tmp->save();
 
         break;
