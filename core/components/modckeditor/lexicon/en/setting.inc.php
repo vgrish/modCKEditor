@@ -87,4 +87,7 @@ $_lang['setting_mcked_source_default_desc'] = 'Выберите источник
 $_lang['setting_mcked_config_variables'] = 'Список переменных редактора';
 $_lang['setting_mcked_config_variables_desc'] = 'Список переменных редактора';
 
+$_lang['setting_mcked_additional_editor_fields'] = 'Список подключаемых полей';
+$_lang['setting_mcked_additional_editor_fields_desc'] = 'Список подключаемых полей редактора';
+
 

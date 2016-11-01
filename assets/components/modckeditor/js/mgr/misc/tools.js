@@ -1,12 +1,10 @@
 Ext.ns('modckeditor.tools');
 
 
-modckeditor.tools.getAssetsUrl = function () {
-	var url = MODx.config['assets_url'];
+modckeditor.tools.getComponentNameBySelector = function (selector) {
 
-	return url;
+	return selector.replace(/^[.#]/g, '');
 };
-
 
 modckeditor.tools.getFileBrowseUrl = function () {
 	var url = MODx.config['manager_url'] + 'index.php';
@@ -71,24 +69,22 @@ modckeditor.tools.getResourceField = function (field) {
 };
 
 
-modckeditor.tools.getEditorCompact = function (config) {
-	var compact = false;
-	var component = config.component;
-
-	if (config.editorCompact) {
-		compact = config.editorCompact[component];
-	}
-
-	return compact;
-};
-
-
 modckeditor.tools.inArray = function (needle, haystack) {
 	for (key in haystack) {
 		if (haystack[key] == needle) return true;
 	}
 
 	return false;
+};
+
+
+modckeditor.tools.keyExists = function (key, array) {
+	if (array instanceof Array) {
+		return array.indexOf(key) < 0;
+	}
+	else if (typeof(array) == 'object') {
+		return key in array;
+	}
 };
 
 

@@ -107,6 +107,11 @@ class modCKEditor
             }
             $this->config['config_variables'] = $tmp;
         }
+
+        if (!isset($this->config['additional_editor_fields'])) {
+            $this->config['additional_editor_fields'] = json_decode($this->getOption('additional_editor_fields', null), true);
+        }
+
     }
 
 
@@ -325,7 +330,7 @@ class modCKEditor
                 modckeditor.config={$this->modx->toJSON($config)};
                 modckeditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
                 Ext.onReady(function(){
-                    modckeditor.loadForTVs();
+                    modckeditor.loadEditorForFields();
                 });
             </script>";
         }

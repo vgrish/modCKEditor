@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.8-beta (01.11.2016)
+==============
+- Improved
+
 1.0.7-beta (31.10.2016)
 ==============
 - Change "setting" resolver

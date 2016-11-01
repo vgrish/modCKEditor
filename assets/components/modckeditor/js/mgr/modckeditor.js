@@ -3,7 +3,6 @@ Ext.ns('modckeditor');
 
 modckeditor.ckeditor = function (editorConfig) {
 	Ext.apply(this.cfg, editorConfig, {});
-
 	modckeditor.ckeditor.superclass.constructor.call(this);
 };
 
@@ -11,33 +10,28 @@ modckeditor.ckeditor = function (editorConfig) {
 Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	cfg: {
 		selector: '#ta',
-		component: 'content',
 		editorCompact: {
-			tvs: true,
-			content: false
+			'ta': false,
+			'modx-richtext': true,
 		},
 
-		skin: 'moono',
+		skin: 'moono'
 	},
 
 	initComponent: function () {
 		modckeditor.ckeditor.superclass.initComponent.call(this);
-
 		Ext.onReady(this.render, this);
 	},
 
 	render: function () {
-		Ext.apply(this.cfg, modckeditor.editorConfig, {});
+		Ext.apply(this.cfg, modckeditor.config, modckeditor.editorConfig, {});
 		Ext.each(Ext.query(this.cfg.selector), function (t) {
 			this.initialize(t.id, this.cfg);
 		}, this);
 	},
 
+	setConfig: function (uid, config) {
 
-	initialize: function (uid, config) {
-		var assetsUrl = modckeditor.tools.getAssetsUrl();
-
-		/* add config */
 		if (!config['filebrowserBrowseUrl']) {
 			config['filebrowserBrowseUrl'] = modckeditor.tools.getFileBrowseUrl();
 		}
@@ -45,11 +39,28 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			config['filebrowserUploadUrl'] = modckeditor.tools.getFileUploadUrl('image');
 		}
 
+		config['componentName'] = modckeditor.tools.getComponentNameBySelector(config['selector']);
+
+		/* compact mode */
+		if (modckeditor.tools.keyExists(config['componentName'], config['editorCompact'])) {
+			config['editorCompact'] = config['editorCompact'][config['componentName']];
+		}
+		else {
+			config['editorCompact'] = true;
+		}
+
+		return config;
+	},
+
+	initialize: function (uid, config) {
+
+		config = this.setConfig(uid, config);
+
 		if (config['addExternalPlugins']) {
 			for (var name in config['addExternalPlugins']) {
 				var script = config['addExternalPlugins'][name];
 				if (script) {
-					CKEDITOR.plugins.addExternal(name, assetsUrl + script, '');
+					CKEDITOR.plugins.addExternal(name, config['assetsUrl'] + script, '');
 				}
 			}
 		}
@@ -58,7 +69,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			for (var name in config['addExternalSkin']) {
 				var skin = config['addExternalSkin'][name];
 				if (skin && name == config.skin) {
-					config.skin = skin + ',' + assetsUrl + skin;
+					config.skin = skin + ',' + config['assetsUrl'] + skin;
 				}
 			}
 		}
@@ -71,7 +82,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 				var template = config['addTemplates'][name];
 				if (template && !modckeditor.tools.inArray(name, templates)) {
 					templates.push(name);
-					templatesFiles.push(assetsUrl + template);
+					templatesFiles.push(config['assetsUrl'] + template);
 				}
 			}
 
@@ -90,10 +101,14 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}
 		}
 
+
+		var editor = CKEDITOR.instances[uid] || null;
+		if (editor) {
+			return false;
+		}
+
 		/* compact mode */
-		var editor = null;
-		var compact = modckeditor.tools.getEditorCompact(config);
-		if (compact) {
+		if (config['editorCompact']) {
 			editor = CKEDITOR.inline(uid, config);
 		}
 		else {
@@ -307,15 +322,25 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 });
 
 
-modckeditor.loadForTVs = function () {
+modckeditor.loadEditorForFields = function (fields) {
 	if (modckeditor.config == undefined) {
 		return false;
 	}
-	new modckeditor.ckeditor({
-		component: 'tvs',
-		selector: '.modx-richtext',
-		droppable: false
+
+	modckeditor.config['additional_editor_fields'] = fields || modckeditor.config['additional_editor_fields'] || [];
+	modckeditor.config['additional_editor_fields'].filter(function (field) {
+
+		new modckeditor.ckeditor({
+			selector: '.' + field,
+			droppable: false
+		});
+		new modckeditor.ckeditor({
+			selector: '#' + field,
+			droppable: false
+		});
+
 	});
+
 };
 
 
@@ -324,7 +349,6 @@ MODx.loadRTE = function (id) {
 		return false;
 	}
 	new modckeditor.ckeditor({
-		component: 'content',
 		selector: '#' + id,
 		droppable: true
 	});

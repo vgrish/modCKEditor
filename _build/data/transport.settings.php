@@ -55,13 +55,13 @@ $tmp = array(
         'type'  => 'string'
     ),
     'cfg_enterMode'      => array(
-        'value' => 2,
+        'value' => 1,
         'xtype' => 'numberfield',
         'area'  => 'mcked_cfg',
         'type'  => 'integer'
     ),
     'cfg_shiftEnterMode' => array(
-        'value' => 2,
+        'value' => 1,
         'xtype' => 'numberfield',
         'area'  => 'mcked_cfg',
         'type'  => 'integer'
@@ -131,7 +131,7 @@ $tmp = array(
         'type'  => 'array'
     ),
     'cfg_editorCompact' => array(
-        'value' => '{"tvs":true,"content":false}',
+        'value' => '{"ta":false,"modx-richtext":true}',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'array'
@@ -139,19 +139,19 @@ $tmp = array(
 
     'cfg_addExternalPlugins' => array(
         'value' => '',
-        //'value' => '{"pagecut":"/components/modckeditor/vendor/plugins/pagecut/pagecut/plugin.js"}',
+        //'value' => '{"pagecut":"vendor/plugins/pagecut/pagecut/plugin.js"}',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
     'cfg_addExternalSkin'    => array(
-        'value' => '{"flat":"/components/modckeditor/vendor/skins/flat/"}',
+        'value' => '{"flat":"vendor/skins/flat/"}',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
     'cfg_addTemplates'       => array(
-        'value' => '{"default":"/components/modckeditor/vendor/ckeditor/plugins/templates/templates/default.js"}',
+        'value' => '{"default":"vendor/ckeditor/plugins/templates/templates/default.js"}',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'array'
@@ -168,6 +168,13 @@ $tmp = array(
         'xtype' => 'textarea',
         'area'  => 'mcked_main',
     ),
+    'additional_editor_fields'       => array(
+        'value' => '["modx-richtext","modx-resource-introtext"]',
+        'xtype' => 'textarea',
+        'area'  => 'mcked_main',
+        'type'  => 'array'
+    ),
+
 
     //временные
     /* 'assets_path'    => array(

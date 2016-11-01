@@ -85,7 +85,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'area'  => 'mcked_cfg',
                 'type'  => 'array',
                 'value' => array(
-                    'mod_resource_view' => '/components/modckeditor/vendor/plugins/mod_resource_view/plugin.js'
+                    'mod_resource_view' => 'vendor/plugins/mod_resource_view/plugin.js'
                 )
             ),
         );
