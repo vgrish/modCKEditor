@@ -10,7 +10,7 @@ modckeditor.tools.getFileBrowseUrl = function () {
 	var url = MODx.config['manager_url'] + 'index.php';
 	var query = {
 		a: MODx.action['browser'],
-		source: MODx.config['modckeditor_source_default'] || MODx.config['default_media_source']
+		source: MODx.config['mcked_source_default'] || MODx.config['default_media_source']
 	};
 
 	return url + '?' + Ext.urlEncode(query);
@@ -25,7 +25,7 @@ modckeditor.tools.getFileUploadUrl = function (type) {
 		wctx: MODx.ctx,
 		HTTP_MODAUTH: MODx.siteId,
 		type: type || '',
-		source: MODx.config['modckeditor_source_default'] || MODx.config['default_media_source'],
+		source: MODx.config['mcked_source_default'] || MODx.config['default_media_source'],
 	};
 
 	var id = modckeditor.tools.getResourceField('id');

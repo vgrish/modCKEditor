@@ -77,7 +77,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'area'  => 'mcked_cfg',
                 'type'  => 'string',
                 'value' => array(
-                    'mod_resource_view'
+                    'typograf'
                 )
             ),
             array(
@@ -85,7 +85,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'area'  => 'mcked_cfg',
                 'type'  => 'array',
                 'value' => array(
-                    'mod_resource_view' => 'vendor/plugins/mod_resource_view/plugin.js'
+                    'typograf' => 'vendor/plugins/typograf/plugin.js'
                 )
             ),
         );

@@ -109,7 +109,8 @@ class modCKEditor
         }
 
         if (!isset($this->config['additional_editor_fields'])) {
-            $this->config['additional_editor_fields'] = json_decode($this->getOption('additional_editor_fields', null), true);
+            $this->config['additional_editor_fields'] = json_decode($this->getOption('additional_editor_fields', null),
+                true);
         }
 
     }

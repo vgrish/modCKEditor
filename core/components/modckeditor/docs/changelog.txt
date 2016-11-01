@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.9-beta (02.11.2016)
+==============
+- Fix "prefix config"
+
 1.0.8-beta (01.11.2016)
 ==============
 - Improved

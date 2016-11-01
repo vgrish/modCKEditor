@@ -6,6 +6,7 @@
 	border-radius: 3px;
 	border: 1px solid #E4E4E4;
 	transition: border-color 0.25s;
+	overflow: hidden;
 }
 
 /* add style content editor */
