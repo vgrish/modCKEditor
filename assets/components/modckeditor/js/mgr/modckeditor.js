@@ -137,7 +137,10 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}, this);
 		}
 
+		/* fix contenteditable margin */
+		CKEDITOR.addCss('body.cke_editable.cke_show_borders  { margin: 10px; }');
 
+		/* add templates TODO */
 		CKEDITOR.on("instanceReady", function () {
 
 			if (modckeditor.editorConfig['enableModTemplates'] && !CKEDITOR['enableModTemplates']) {

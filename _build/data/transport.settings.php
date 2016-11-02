@@ -31,7 +31,7 @@ $tmp = array(
         'type'  => 'string'
     ),
     'cfg_removePlugins'     => array(
-        'value' => '["autogrow","bidi","font","forms","liststyle","pagebreak","preview","print","colorbutton","indentblock","newpage","language","save","selectall","smiley","scayt","wsc"]',
+        'value' => '["about","autogrow","bidi","font","forms","liststyle","pagebreak","preview","print","colorbutton","indentblock","newpage","language","save","selectall","sourcearea","smiley","scayt","wsc"]',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'string'
@@ -49,7 +49,7 @@ $tmp = array(
         'type'  => 'string'
     ),
     'cfg_extraPlugins'      => array(
-        'value' => '["codesnippet","uploadimage","image2","embed","lineutils","widget"]',
+        'value' => '["codesnippet","uploadimage","image2","embed","lineutils","sourcedialog","widget"]',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'string'

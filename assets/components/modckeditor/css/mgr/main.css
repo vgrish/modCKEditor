@@ -17,3 +17,17 @@
 	border: 1px solid #E4E4E4;
 	transition: border-color 0.25s;
 }
+
+/* add css toolbar */
+.cke_inner .cke_top {
+	padding: 1px 1px 1px;
+}
+
+.cke_toolbar .cke_toolgroup,
+.cke_toolbar .cke_combo_button {
+	margin: 0 1px 1px 0;
+}
+
+.cke_button__sourcedialog .cke_button__sourcedialog_label {
+	display: none;
+}
