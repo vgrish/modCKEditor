@@ -136,6 +136,7 @@ class modCKEditor
 
             $useEditor = $this->modx->getOption('use_editor', false);
             $whichEditor = $this->modx->getOption('which_editor', '');
+
             if ($useEditor AND $whichEditor == 'modckeditor') {
                 $initialize = true;
             }
@@ -321,6 +322,14 @@ class modCKEditor
             ${$key} = $this->modx->getOption($key, $scriptProperties);
             if (is_object(${$key}) AND ${$key} instanceof xPDOObject) {
                 $config[$key] = ${$key}->toArray();
+
+                /* hack to display "onRichTextEditorInit" */
+                /*
+                 * https://github.com/modxcms/revolution/blob/fbf126690f6ce903faeaeb9f1d958211fc2203c9/manager/templates/default/resource/update.tpl#L9
+                 */
+                if (isset($resource)) {
+                    $resource->richtext =1;
+                }
             }
         }
 

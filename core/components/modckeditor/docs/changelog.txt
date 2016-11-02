@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.10-beta (02.11.2016)
+==============
+- Add hack to display "onRichTextEditorInit"
+
 1.0.9-beta (02.11.2016)
 ==============
 - Fix "prefix config"
