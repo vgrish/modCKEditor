@@ -38,7 +38,7 @@ define('BUILD_EVENT_UPDATE', true);
 
 $BUILD_RESOLVERS = array(
     'extension',
-    //'vendors',
+    'vendors',
     'sources',
     'settings',
 );
