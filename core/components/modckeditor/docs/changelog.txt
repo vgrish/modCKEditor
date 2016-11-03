@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.14-beta (04.11.2016)
+==============
+- Add "insert tags"
+
 1.0.13-beta (03.11.2016)
 ==============
 - Fix "vendors update"

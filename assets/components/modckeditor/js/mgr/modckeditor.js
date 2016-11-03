@@ -15,7 +15,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			'modx-richtext': true,
 		},
 
-		skin: 'moono'
+		skin: 'moono',
 	},
 
 	initComponent: function () {
@@ -54,6 +54,11 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 	initialize: function (el, config) {
 		var uid = el.id;
+
+		var editor = CKEDITOR.instances[uid] || null;
+		if (editor) {
+			return false;
+		}
 
 		config = this.setConfig(config);
 
@@ -106,11 +111,6 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}
 		}
 
-
-		var editor = CKEDITOR.instances[uid] || null;
-		if (editor) {
-			return false;
-		}
 
 		/* compact mode */
 		if (config['editorCompact']) {
@@ -193,8 +193,8 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			return false;
 		}
 
-		var ddTarget = new Ext.Element(editor.container.$);
-		var ddTargetEl = ddTarget.dom;
+		var ddTarget = new Ext.Element(editor.container.$),
+			ddTargetEl = ddTarget.dom;
 
 		var insert = {
 			text: function (text) {
@@ -212,10 +212,15 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			file: function (path, type) {
 				if (type) {
 					var element = '<' + type + ' src="/' + path + '" controls="">';
-					editor.insertHtml(element);
+					editor.insertHtml(element + "\n");
 					editor.focus();
 				}
-			}
+			},
+			tags: function (text) {
+				text = '<pre><devtags>' + text + '</devtags></pre>';
+				editor.insertHtml(text + "\n");
+				editor.focus();
+			},
 		};
 
 		var dropTarget = new Ext.dd.DropTarget(ddTargetEl, {
@@ -301,9 +306,9 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 						name: data.node.attributes.name,
 						output: v,
 						ddTargetEl: ddTargetEl,
-						cfg: {onInsert: insert.text},
+						cfg: {onInsert: insert.tags},
 						iframe: true,
-						onInsert: insert.text
+						onInsert: insert.tags
 					});
 				}
 
@@ -339,11 +344,12 @@ modckeditor.loadEditorForFields = function (fields) {
 	modckeditor.config['additional_editor_fields'].filter(function (field) {
 
 		new modckeditor.ckeditor({
-			selector: '.' + field,
+			selector: '#' + field,
 			droppable: false
 		});
+
 		new modckeditor.ckeditor({
-			selector: '#' + field,
+			selector: '.' + field,
 			droppable: false
 		});
 
@@ -370,5 +376,3 @@ MODx.unloadRTE = function (id) {
 		editor.destroy(true);
 	}
 };
-
-
