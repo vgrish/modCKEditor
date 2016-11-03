@@ -25,12 +25,12 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 	render: function () {
 		Ext.apply(this.cfg, modckeditor.config, modckeditor.editorConfig, {});
-		Ext.each(Ext.query(this.cfg.selector), function (t) {
-			this.initialize(t.id, this.cfg);
+		Ext.each(Ext.query(this.cfg.selector), function (el) {
+			this.initialize(el, this.cfg);
 		}, this);
 	},
 
-	setConfig: function (uid, config) {
+	setConfig: function (config) {
 
 		if (!config['filebrowserBrowseUrl']) {
 			config['filebrowserBrowseUrl'] = modckeditor.tools.getFileBrowseUrl();
@@ -52,9 +52,14 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		return config;
 	},
 
-	initialize: function (uid, config) {
+	initialize: function (el, config) {
+		var uid = el.id;
 
-		config = this.setConfig(uid, config);
+		config = this.setConfig(config);
+
+		if (!config['height']) {
+			config['height'] = parseInt(el.offsetHeight) || 200;
+		}
 
 		if (config['addExternalPlugins']) {
 			for (var name in config['addExternalPlugins']) {

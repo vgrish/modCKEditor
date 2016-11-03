@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.12-beta (03.11.2016)
+==============
+- Fix "height" editor
+
 1.0.11-beta (03.11.2016)
 ==============
 - Add "sourcearea","about" to "removePlugins"
