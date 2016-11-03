@@ -47,7 +47,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             if (file_exists($path . '.' . $name)) {
                 $modx->log(modX::LOG_LEVEL_INFO, "Trying to delete old <b>{$name}</b> files. Please wait...");
                 $cacheManager->deleteTree($path . $name . '/',
-                    array_merge(array('deleteTop' => false, 'skipDirs' => false, 'extensions' => array())));
+                    array_merge(array('deleteTop' => false, 'skipDirs' => true, 'extensions' => array())));
             }
 
             $modx->log(modX::LOG_LEVEL_INFO, "Trying to download <b>{$name}</b>. Please wait...");
