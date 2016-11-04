@@ -1,5 +1,10 @@
 Changelog for modCKEditor
 
+1.0.15-beta (04.11.2016)
+==============
+- Add "devtags" plugin
+- Add "OnWebPagePrerender" event
+
 1.0.14-beta (04.11.2016)
 ==============
 - Add "insert tags"

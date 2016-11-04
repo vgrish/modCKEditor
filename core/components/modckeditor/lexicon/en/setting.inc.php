@@ -90,4 +90,5 @@ $_lang['setting_mcked_config_variables_desc'] = 'Список переменны
 $_lang['setting_mcked_additional_editor_fields'] = 'Список подключаемых полей';
 $_lang['setting_mcked_additional_editor_fields_desc'] = 'Список подключаемых полей редактора';
 
-
+$_lang['setting_mcked_remove_devtags'] = 'Удалять теги разработки';
+$_lang['setting_mcked_remove_devtags_desc'] = 'Удалять теги "devtags" при рендере страницы';

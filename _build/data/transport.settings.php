@@ -54,13 +54,13 @@ $tmp = array(
         'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
-    'cfg_enterMode'      => array(
+    'cfg_enterMode'         => array(
         'value' => 1,
         'xtype' => 'numberfield',
         'area'  => 'mcked_cfg',
         'type'  => 'integer'
     ),
-    'cfg_shiftEnterMode' => array(
+    'cfg_shiftEnterMode'    => array(
         'value' => 1,
         'xtype' => 'numberfield',
         'area'  => 'mcked_cfg',
@@ -158,17 +158,22 @@ $tmp = array(
     ),
 
 
-    'source_default'   => array(
+    'source_default'           => array(
         'value' => '0',
         'xtype' => 'modx-combo-source',
         'area'  => 'mcked_main',
     ),
-    'config_variables' => array(
+    'config_variables'         => array(
         'value' => '',
         'xtype' => 'textarea',
         'area'  => 'mcked_main',
     ),
-    'additional_editor_fields'       => array(
+    'remove_devtags'           => array(
+        'value' => true,
+        'xtype' => 'combo-boolean',
+        'area'  => 'mcked_main',
+    ),
+    'additional_editor_fields' => array(
         'value' => '["modx-richtext","modx-resource-introtext"]',
         'xtype' => 'textarea',
         'area'  => 'mcked_main',

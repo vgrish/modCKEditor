@@ -3,13 +3,14 @@
 $plugins = array();
 
 $tmp = array(
-    'modCKEditorSystem'    => array(
+    'modCKEditorSystem' => array(
         'file'        => 'system',
         'description' => '',
         'events'      => array(
             'OnRichTextEditorInit'     => array('priority' => 0),
             'OnRichTextEditorRegister' => array('priority' => 0),
             'OnRichTextBrowserInit'    => array('priority' => 0),
+            'OnWebPagePrerender'       => array('priority' => 0),
         )
     ),
 );

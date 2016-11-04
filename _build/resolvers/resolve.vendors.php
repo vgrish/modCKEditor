@@ -31,6 +31,12 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'https://github.com/vgrish/skin-ckeditor-flat/archive/master.zip',
                 MODX_ASSETS_PATH . 'components/modckeditor/vendor/skins/'
             ),
+            array(
+                'devtags',
+                'devtags',
+                'https://github.com/vgrish/ckeditor-plugin-devtags/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/modckeditor/vendor/plugins/'
+            ),
         );
 
         foreach ($vendors as $vendor) {

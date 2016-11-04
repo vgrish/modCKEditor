@@ -70,14 +70,14 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
             }
         }
 
-        //////
+        /* add devtags */
         $settings = array(
             array(
                 'key'   => 'extraPlugins',
                 'area'  => 'mcked_cfg',
                 'type'  => 'string',
                 'value' => array(
-                    'typograf'
+                    'devtags'
                 )
             ),
             array(
@@ -85,13 +85,13 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'area'  => 'mcked_cfg',
                 'type'  => 'array',
                 'value' => array(
-                    'typograf' => 'vendor/plugins/typograf/plugin.js'
+                    'devtags' => 'vendor/plugins/devtags/plugin.js'
                 )
             ),
         );
 
         foreach ($settings as $row) {
-            //$modCKEditor->addConfigSetting($row);
+            $modCKEditor->addConfigSetting($row);
         }
 
 
