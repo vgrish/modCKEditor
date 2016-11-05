@@ -37,28 +37,6 @@ modckeditor.tools.getPluginActionUrl = function (name, action, query) {
 };
 
 
-/*
-modckeditor.tools.getFileUploadUrl = function (type) {
-	var url = modckeditor.config['connector_url'];
-	var query = {
-		action: 'mgr/browser/file/upload',
-		path: '/',
-		wctx: MODx.ctx,
-		HTTP_MODAUTH: MODx.siteId,
-		type: type || '',
-		source: MODx.config['mcked_source_default'] || MODx.config['default_media_source'],
-	};
-
-	var id = modckeditor.tools.getResourceField('id');
-	if (id) {
-		query['path'] = '/' + id + '/'
-	}
-
-	return url + '?' + Ext.urlEncode(query);
-};
-*/
-
-
 modckeditor.tools.getUpdateButton = function () {
 	var pageButtons = MODx.activePage ? MODx.activePage.buttons : {};
 
