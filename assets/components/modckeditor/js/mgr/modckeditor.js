@@ -33,10 +33,10 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	setConfig: function (config) {
 
 		if (!config['filebrowserBrowseUrl']) {
-			config['filebrowserBrowseUrl'] = modckeditor.tools.getFileBrowseUrl();
+			config['filebrowserBrowseUrl'] = modckeditor.tools.getFileBrowserUrl();
 		}
 		if (!config['filebrowserUploadUrl']) {
-			config['filebrowserUploadUrl'] = modckeditor.tools.getFileUploadUrl('image');
+			config['filebrowserUploadUrl'] = modckeditor.tools.getPluginActionUrl('filebrowser', 'upload');
 		}
 
 		config['componentName'] = modckeditor.tools.getComponentNameBySelector(config['selector']);
@@ -84,34 +84,6 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}
 		}
 
-		if (config['addTemplates']) {
-			var templates = config.templates ? config.templates.split(',') : [];
-			var templatesFiles = [];
-
-			for (var name in config['addTemplates']) {
-				var template = config['addTemplates'][name];
-				if (template && !modckeditor.tools.inArray(name, templates)) {
-					templates.push(name);
-					templatesFiles.push(config['assetsUrl'] + template);
-				}
-			}
-
-			if (templatesFiles.length) {
-				config.templates_files = templatesFiles;
-				config.templates = templates.join(',');
-			}
-		}
-
-		if (config['enableModTemplates']) {
-			var templates = config.templates ? config.templates.split(',') : [];
-			var name = 'modtemplate';
-			if (!modckeditor.tools.inArray(name, templates)) {
-				templates.push(name);
-				config.templates = templates.join(',');
-			}
-		}
-
-
 		/* compact mode */
 		if (config['editorCompact']) {
 			editor = CKEDITOR.inline(uid, config);
@@ -145,47 +117,6 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		/* fix contenteditable margin */
 		CKEDITOR.addCss('body.cke_editable.cke_show_borders  { margin: 10px; }');
 
-		/* add templates TODO */
-		CKEDITOR.on("instanceReady", function () {
-
-			if (modckeditor.editorConfig['enableModTemplates'] && !CKEDITOR['enableModTemplates']) {
-				CKEDITOR['enableModTemplates'] = true;
-
-				MODx.Ajax.request({
-					url: modckeditor.config.connector_url,
-					params: {
-						action: 'mgr/template/getlist',
-						component: config.component || '',
-					},
-					listeners: {
-						success: {
-							fn: function (r) {
-								var templates = [];
-								r.results.filter(function (row) {
-									var template = [];
-
-									template.title = row['templatename'];
-									template.image = '';
-									template.description = row['description'];
-									template.html = row['content'];
-
-									templates.push(template);
-								});
-
-								var loadTemplates = CKEDITOR.getTemplates('modtemplate');
-								if (!loadTemplates || loadTemplates == 'undefined') {
-									CKEDITOR.addTemplates('modtemplate', {
-										templates: templates
-									});
-								}
-							},
-							scope: this
-						}
-					}
-				});
-			}
-
-		});
 	},
 
 	registerDrop: function (editor) {
@@ -217,8 +148,8 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 				}
 			},
 			tags: function (text) {
-				text = '<pre><devtags>' + text + '</devtags></pre>';
-				editor.insertHtml(text + "\n");
+				text = "<pre><devtags>\n" + text + "\n</devtags></pre>\n";
+				editor.insertHtml(text);
 				editor.focus();
 			},
 		};
@@ -245,6 +176,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 				if (editor.mode != 'wysiwyg') {
 					return false;
 				}
+				console.log(data);
 
 				fakeDiv && fakeDiv.remove();
 				var v = '';

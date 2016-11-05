@@ -30,6 +30,20 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                     'lexicon' => 'core:source',
                     'value'   => 'assets/modckeditor/',
                 ),
+                'fileName' => array(
+                    'name'    => 'fileName',
+                    'desc'    => 'setting_mcked_source_fileName_desc',
+                    'type'    => 'textfield',
+                    'lexicon' => 'modckeditor',
+                    'value'   => '{name}.{ext}',
+                ),
+                'filePath' => array(
+                    'name'    => 'filePath',
+                    'desc'    => 'setting_mcked_source_filePath_desc',
+                    'type'    => 'textfield',
+                    'lexicon' => 'modckeditor',
+                    'value'   => '{class_key}/{id}/',
+                ),
             )
         ,
             'is_stream'   => 1

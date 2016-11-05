@@ -51,7 +51,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'disableNativeSpellChecker',
                 'fillEmptyBlocks',
                 'basicEntities',
-                'enableModTemplates',
+                'htmlEncodeOutput',
             ),
             'array'   => array(
                 'toolbar',

@@ -6,10 +6,12 @@ modckeditor.tools.getComponentNameBySelector = function (selector) {
 	return selector.replace(/^[.#]/g, '');
 };
 
-modckeditor.tools.getFileBrowseUrl = function () {
+
+modckeditor.tools.getFileBrowserUrl = function () {
 	var url = MODx.config['manager_url'] + 'index.php';
 	var query = {
 		a: MODx.action['browser'],
+		wctx: MODx.ctx,
 		source: MODx.config['mcked_source_default'] || MODx.config['default_media_source']
 	};
 
@@ -17,6 +19,25 @@ modckeditor.tools.getFileBrowseUrl = function () {
 };
 
 
+modckeditor.tools.getPluginActionUrl = function (name, action, query) {
+	query = query || {};
+
+	var url = modckeditor.config['connector_url'];
+	Ext.applyIf(query, {
+		action: 'mgr/plugins/' + name + '/' + action,
+		wctx: MODx.ctx,
+		HTTP_MODAUTH: MODx.siteId,
+		source: MODx.config['mcked_source_default'] || MODx.config['default_media_source'],
+
+		id: modckeditor.tools.getResourceField('id') || 0,
+		class_key: modckeditor.tools.getResourceField('class_key') || 'default'
+	});
+
+	return url + '?' + Ext.urlEncode(query);
+};
+
+
+/*
 modckeditor.tools.getFileUploadUrl = function (type) {
 	var url = modckeditor.config['connector_url'];
 	var query = {
@@ -35,6 +56,7 @@ modckeditor.tools.getFileUploadUrl = function (type) {
 
 	return url + '?' + Ext.urlEncode(query);
 };
+*/
 
 
 modckeditor.tools.getUpdateButton = function () {

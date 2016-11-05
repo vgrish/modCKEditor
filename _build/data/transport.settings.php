@@ -31,7 +31,7 @@ $tmp = array(
         'type'  => 'string'
     ),
     'cfg_removePlugins'     => array(
-        'value' => '["about","autogrow","bidi","font","forms","liststyle","pagebreak","preview","print","colorbutton","indentblock","newpage","language","save","selectall","sourcearea","smiley","scayt","wsc"]',
+        'value' => '["about","autogrow","bidi","font","forms","liststyle","pagebreak","preview","print","colorbutton","indentblock","newpage","language","save","selectall","sourcearea","smiley","scayt","templates","wsc"]',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'string'
@@ -49,7 +49,7 @@ $tmp = array(
         'type'  => 'string'
     ),
     'cfg_extraPlugins'      => array(
-        'value' => '["codesnippet","uploadimage","image2","embed","lineutils","sourcedialog","widget"]',
+        'value' => '["uploadimage","image2","embed","lineutils","sourcedialog","widget"]',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'string'
@@ -69,6 +69,12 @@ $tmp = array(
 
 
     'cfg_entities'                  => array(
+        'xtype' => 'combo-boolean',
+        'value' => false,
+        'area'  => 'mcked_cfg',
+        'type'  => 'boolean'
+    ),
+    'cfg_htmlEncodeOutput'          => array(
         'xtype' => 'combo-boolean',
         'value' => false,
         'area'  => 'mcked_cfg',
@@ -104,12 +110,7 @@ $tmp = array(
         'area'  => 'mcked_cfg',
         'type'  => 'boolean'
     ),
-    'cfg_enableModTemplates'        => array(
-        'value' => true,
-        'xtype' => 'combo-boolean',
-        'area'  => 'mcked_cfg',
-        'type'  => 'boolean'
-    ),
+
 
 
     'cfg_toolbar'       => array(
@@ -150,17 +151,21 @@ $tmp = array(
         'area'  => 'mcked_cfg',
         'type'  => 'array'
     ),
-    'cfg_addTemplates'       => array(
-        'value' => '{"default":"vendor/ckeditor/plugins/templates/templates/default.js"}',
-        'xtype' => 'textarea',
-        'area'  => 'mcked_cfg',
-        'type'  => 'array'
-    ),
 
 
     'source_default'           => array(
         'value' => '0',
         'xtype' => 'modx-combo-source',
+        'area'  => 'mcked_main',
+    ),
+    'source_fileName'              => array(
+        'value' => '{name}.{ext}',
+        'xtype' => 'textfield',
+        'area'  => 'mcked_main',
+    ),
+    'source_filePath'              => array(
+        'value' => '{class_key}/{id}/',
+        'xtype' => 'textfield',
         'area'  => 'mcked_main',
     ),
     'config_variables'         => array(
@@ -179,6 +184,7 @@ $tmp = array(
         'area'  => 'mcked_main',
         'type'  => 'array'
     ),
+
 
 
     //временные

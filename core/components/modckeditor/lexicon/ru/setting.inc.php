@@ -56,9 +56,6 @@ $_lang['setting_mcked_cfg_fillEmptyBlocks_desc'] = 'Настройка "fillEmpt
 $_lang['setting_mcked_cfg_basicEntities'] = 'Настройка "basicEntities" редактора';
 $_lang['setting_mcked_cfg_basicEntities_desc'] = 'Настройка "basicEntities" редактора';
 
-$_lang['setting_mcked_cfg_enableModTemplates'] = 'Разрешить загрузку шаблонов "MODX" в темплейты редактора';
-$_lang['setting_mcked_cfg_enableModTemplates_desc'] = 'Настройка "enableModTemplates" редактора';
-
 $_lang['setting_mcked_cfg_toolbar'] = 'Панель кнопок редактора';
 $_lang['setting_mcked_cfg_toolbar_desc'] = 'Настройка "toolbar" редактора';
 
@@ -77,8 +74,8 @@ $_lang['setting_mcked_cfg_addExternalPlugins_desc'] = 'Настройка "addEx
 $_lang['setting_mcked_cfg_addExternalSkin'] = 'Внешние темы редактора';
 $_lang['setting_mcked_cfg_addExternalSkin_desc'] = 'Настройка "addExternalSkin" редактора';
 
-$_lang['setting_mcked_cfg_addTemplates'] = 'Внешние темплейты редактора';
-$_lang['setting_mcked_cfg_addTemplates_desc'] = 'Настройка "addTemplates" редактора';
+$_lang['setting_mcked_cfg_htmlEncodeOutput'] = 'Настройка htmlEncodeOutput редактора';
+$_lang['setting_mcked_cfg_htmlEncodeOutput_desc'] = 'Настройка "htmlEncodeOutput" редактора';
 
 
 $_lang['setting_mcked_source_default'] = 'Источник медиа для редактора';
@@ -92,3 +89,10 @@ $_lang['setting_mcked_additional_editor_fields_desc'] = 'Список подкл
 
 $_lang['setting_mcked_remove_devtags'] = 'Удалять теги разработки';
 $_lang['setting_mcked_remove_devtags_desc'] = 'Удалять теги "devtags" при рендере страницы';
+
+$_lang['setting_mcked_source_fileName'] = 'Шаблон имени файла';
+$_lang['setting_mcked_source_fileName_desc'] = 'Шаблон имени файла';
+
+$_lang['setting_mcked_source_filePath'] = 'Шаблон размещения файла';
+$_lang['setting_mcked_source_filePath_desc'] = 'Шаблон размещения файла';
+

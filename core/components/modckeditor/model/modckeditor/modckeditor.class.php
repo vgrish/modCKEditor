@@ -237,10 +237,8 @@ class modCKEditor
                 if (empty($tmp)) {
                     $tmp = $value;
                 }
-                if ($tmp == '') {
-                    continue;
-                }
-                if (!is_array($tmp)) {
+
+                if ($tmp != '' AND !is_array($tmp)) {
                     $tmp = array($tmp);
                 }
 
@@ -293,7 +291,9 @@ class modCKEditor
     public function getEditorConfig()
     {
         $config = array(
-            'baseHref' => $this->modx->getOption('site_url', null, '/', true),
+            'baseHref'         => $this->modx->getOption('site_url', null, '/', true),
+            'basicEntities'    => false,
+            'htmlEncodeOutput' => false,
         );
         $config = array_merge($config, $this->getCKEditorConfig());
 
@@ -328,7 +328,7 @@ class modCKEditor
                  * https://github.com/modxcms/revolution/blob/fbf126690f6ce903faeaeb9f1d958211fc2203c9/manager/templates/default/resource/update.tpl#L9
                  */
                 if (isset($resource)) {
-                    $resource->richtext =1;
+                    $resource->richtext = 1;
                 }
             }
         }
