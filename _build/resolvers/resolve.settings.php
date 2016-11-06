@@ -37,6 +37,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'removePlugins',
                 'format_tags',
                 'codeSnippet_theme',
+                'codemirror_theme',
                 'extraPlugins',
             ),
             'integer' => array(
@@ -52,6 +53,7 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'fillEmptyBlocks',
                 'basicEntities',
                 'htmlEncodeOutput',
+                'indentWithTabs'
             ),
             'array'   => array(
                 'toolbar',
@@ -86,6 +88,22 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 'type'  => 'array',
                 'value' => array(
                     'devtags' => 'vendor/plugins/devtags/plugin.js'
+                )
+            ),
+            array(
+                'key'   => 'extraPlugins',
+                'area'  => 'mcked_cfg',
+                'type'  => 'string',
+                'value' => array(
+                    'codemirror'
+                )
+            ),
+            array(
+                'key'   => 'addExternalPlugins',
+                'area'  => 'mcked_cfg',
+                'type'  => 'array',
+                'value' => array(
+                    'codemirror' => 'vendor/plugins/codemirror/codemirror/plugin.js'
                 )
             ),
         );

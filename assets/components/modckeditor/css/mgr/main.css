@@ -1,5 +1,5 @@
 /* add style inline editor */
-.cke_editable.cke_editable_inline.cke_show_borders {
+.mcked-body .cke_editable.cke_editable_inline.cke_show_borders {
 	padding: 5px;
 	background-color: #FBFBFB;
 	background-image: none;
@@ -10,7 +10,7 @@
 }
 
 /* add style content editor */
-.cke_editor_ta .cke_wysiwyg_frame {
+.mcked-body .cke_editor_ta .cke_wysiwyg_frame {
 	background-color: #FBFBFB;
 	background-image: none;
 	border-radius: 3px;
@@ -19,15 +19,23 @@
 }
 
 /* add css toolbar */
-.cke_inner .cke_top {
+.mcked-body .cke_inner .cke_top {
 	padding: 1px 1px 1px;
 }
 
-.cke_toolbar .cke_toolgroup,
-.cke_toolbar .cke_combo_button {
+.mcked-body .cke_toolbar .cke_toolgroup,
+.mcked-body .cke_toolbar .cke_combo_button {
 	margin: 0 1px 1px 0;
 }
 
-.cke_button__sourcedialog .cke_button__sourcedialog_label {
+
+.mcked-body .cke_toolbar .cke_button__source,
+.mcked-body .cke_toolbar .cke_button__searchcode,
+.mcked-body .cke_toolbar .cke_button__autoformat,
+.mcked-body .cke_toolbar .cke_button__commentselectedrange,
+.mcked-body .cke_toolbar .cke_button__uncommentselectedrange,
+.mcked-body .cke_toolbar .cke_button__autocomplete,
+
+.mcked-body .cke_toolbar .cke_button__sourcedialog .cke_button__sourcedialog_label {
 	display: none;
 }

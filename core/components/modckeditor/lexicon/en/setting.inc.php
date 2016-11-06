@@ -29,6 +29,9 @@ $_lang['setting_mcked_cfg_format_tags_desc'] = 'Настройка "format_tags"
 $_lang['setting_mcked_cfg_codeSnippet_theme'] = 'Тема фрагментов кода редактора';
 $_lang['setting_mcked_cfg_codeSnippet_theme_desc'] = 'Настройка "codeSnippet_theme" редактора';
 
+$_lang['setting_mcked_cfg_codemirror_theme'] = 'Тема источника кода редактора';
+$_lang['setting_mcked_cfg_codemirror_theme_desc'] = 'Настройка "codemirror_theme" редактора';
+
 $_lang['setting_mcked_cfg_extraPlugins'] = 'Дополнительные плагины редактора';
 $_lang['setting_mcked_cfg_extraPlugins_desc'] = 'Настройка "extraPlugins" редактора';
 

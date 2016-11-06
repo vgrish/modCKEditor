@@ -48,12 +48,20 @@ $tmp = array(
         'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
+    'cfg_codemirror_theme' => array(
+        'value' => 'neo',
+        'xtype' => 'textfield',
+        'area'  => 'mcked_cfg',
+        'type'  => 'string'
+    ),
     'cfg_extraPlugins'      => array(
         'value' => '["uploadimage","image2","embed","lineutils","sourcedialog","widget"]',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'string'
     ),
+
+
     'cfg_enterMode'         => array(
         'value' => 1,
         'xtype' => 'numberfield',
@@ -111,8 +119,6 @@ $tmp = array(
         'type'  => 'boolean'
     ),
 
-
-
     'cfg_toolbar'       => array(
         'value' => '',
         'xtype' => 'textarea',
@@ -158,12 +164,12 @@ $tmp = array(
         'xtype' => 'modx-combo-source',
         'area'  => 'mcked_main',
     ),
-    'source_fileName'              => array(
+    'source_fileName'          => array(
         'value' => '{name}.{ext}',
         'xtype' => 'textfield',
         'area'  => 'mcked_main',
     ),
-    'source_filePath'              => array(
+    'source_filePath'          => array(
         'value' => '{class_key}/{id}/',
         'xtype' => 'textfield',
         'area'  => 'mcked_main',
@@ -184,7 +190,6 @@ $tmp = array(
         'area'  => 'mcked_main',
         'type'  => 'array'
     ),
-
 
 
     //временные

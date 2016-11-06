@@ -294,6 +294,7 @@ class modCKEditor
             'baseHref'         => $this->modx->getOption('site_url', null, '/', true),
             'basicEntities'    => false,
             'htmlEncodeOutput' => false,
+            'indentWithTabs'   => true,
         );
         $config = array_merge($config, $this->getCKEditorConfig());
 
@@ -333,13 +334,16 @@ class modCKEditor
             }
         }
 
+        $editorConfig = $this->getEditorConfig();
+
         if (!empty($set['config'])) {
             $output .= "
             <script type='text/javascript'>
                 Ext.ns('modckeditor');
                 modckeditor.config={$this->modx->toJSON($config)};
-                modckeditor.editorConfig = {$this->modx->toJSON($this->getEditorConfig())};
+                modckeditor.editorConfig = {$this->modx->toJSON($editorConfig)};
                 Ext.onReady(function(){
+                    Ext.getBody().addClass('mcked-body');
                     modckeditor.loadEditorForFields();
                 });
             </script>";

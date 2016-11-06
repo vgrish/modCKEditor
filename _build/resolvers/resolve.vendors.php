@@ -32,6 +32,12 @@ switch ($options[xPDOTransport::PACKAGE_ACTION]) {
                 MODX_ASSETS_PATH . 'components/modckeditor/vendor/skins/'
             ),
             array(
+                'codemirror',
+                'codemirror',
+                'https://github.com/w8tcha/CKEditor-CodeMirror-Plugin/archive/master.zip',
+                MODX_ASSETS_PATH . 'components/modckeditor/vendor/plugins/'
+            ),
+            array(
                 'devtags',
                 'devtags',
                 'https://github.com/vgrish/ckeditor-plugin-devtags/archive/master.zip',
