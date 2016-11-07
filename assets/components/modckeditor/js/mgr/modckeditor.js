@@ -117,6 +117,13 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		/* fix contenteditable margin */
 		CKEDITOR.addCss('body.cke_editable.cke_show_borders  { margin: 10px; }');
 
+		/*  */
+		CKEDITOR.on("instanceReady", function (ev) {
+
+			/* add load class */
+			ev.editor.element.$.classList.add("modckeditor-load");
+		});
+
 	},
 
 	registerDrop: function (editor) {
@@ -147,9 +154,13 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 					editor.focus();
 				}
 			},
-			tags: function (text) {
+			devtags: function (text) {
 				text = "<pre><devtags>\n" + text + "\n</devtags></pre>\n";
 				editor.insertHtml(text);
+				editor.focus();
+			},
+			block: function (text) {
+				editor.insertHtml(text + "\n");
 				editor.focus();
 			},
 		};
@@ -172,15 +183,18 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			},
 
 			notifyDrop: function (ddSource, e, data) {
+				var v = '',
+					win = false,
+					block = false;
 
 				if (editor.mode != 'wysiwyg') {
 					return false;
 				}
+
 				console.log(data);
 
 				fakeDiv && fakeDiv.remove();
-				var v = '';
-				var win = false;
+
 				switch (data.node.attributes.type) {
 					case 'modResource':
 						insert.link(data.node.attributes.pk, data.node.text.replace(/\s*<.*>.*<.*>/, ''));
@@ -216,6 +230,10 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 						}
 
 						break;
+					case 'block':
+						block = true;
+						break;
+
 					default:
 						var dh = Ext.getCmp(data.node.attributes.type + '-drop-handler');
 						if (dh) {
@@ -238,9 +256,25 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 						name: data.node.attributes.name,
 						output: v,
 						ddTargetEl: ddTargetEl,
-						cfg: {onInsert: insert.tags},
+						cfg: {onInsert: insert.devtags},
 						iframe: true,
-						onInsert: insert.tags
+						onInsert: insert.devtags
+					});
+				} else if (block && MODx.loadInsertBlock) {
+
+					/* TODO block */
+					console.log('block');
+					console.log(data.node);
+
+					MODx.loadInsertBlock({
+						pk: data.node.attributes.pk,
+						classKey: data.node.attributes.classKey,
+						name: data.node.attributes.name,
+						output: v,
+						ddTargetEl: ddTargetEl,
+						cfg: {onInsert: insert.block},
+						iframe: true,
+						onInsert: insert.block
 					});
 				}
 

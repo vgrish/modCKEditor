@@ -18,6 +18,14 @@
 	transition: border-color 0.25s;
 }
 
+/* hide modckeditor-load  */
+.mcked-body .modckeditor-load {
+	display: none!important;
+	/*height: 0;*/
+	/*width: 0;*/
+	/*z-index: -99999;*/
+}
+
 /* add css toolbar */
 .mcked-body .cke_inner .cke_top {
 	padding: 1px 1px 1px;
