@@ -244,8 +244,7 @@ class modCKEditor
 
                 if (!isset($config[$key])) {
                     $config[$key] = $tmp;
-                }
-                elseif (isset($config[$key]) AND is_array($tmp)) {
+                } elseif (isset($config[$key]) AND is_array($tmp)) {
                     $config[$key] = $this->array_merge_recursive_ex($config[$key], $tmp);
                 }
 
@@ -297,6 +296,7 @@ class modCKEditor
             'basicEntities'    => false,
             'htmlEncodeOutput' => false,
             'indentWithTabs'   => true,
+            'enterMode'        => 1
         );
         $config = array_merge($config, $this->getCKEditorConfig());
 

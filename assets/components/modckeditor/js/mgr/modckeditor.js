@@ -46,6 +46,21 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 		config['componentName'] = modckeditor.tools.getComponentNameBySelector(config['selector']);
 
+		switch (config['enterMode']) {
+			case 1:
+				config['contentSeparator'] = "<p></p>";
+				break;
+			case 2:
+				config['contentSeparator'] = "<br>";
+				break;
+			case 3:
+				config['contentSeparator'] = "<div></div>";
+				break;
+			default:
+				config['contentSeparator'] = "\n";
+				break;
+		}
+
 		/* compact mode */
 		if (modckeditor.tools.keyExists(config['componentName'], config['editorCompact'])) {
 			config['editorCompact'] = config['editorCompact'][config['componentName']];
@@ -115,12 +130,12 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		/* add droppable */
 		if (config['droppable']) {
 			editor.on('uiReady', function () {
-				this.registerDrop(editor);
+				this.registerDrop(editor, config);
 			}, this);
 		}
 
 		/* fix change value */
-		editor.on('change', function(ev) {
+		editor.on('change', function (ev) {
 			if (ev.editor && ev.editor.config && ev.editor.config.element) {
 				ev.editor.config.element.value = editor.getData();
 			}
@@ -135,7 +150,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 	},
 
-	registerDrop: function (editor) {
+	registerDrop: function (editor, config) {
 		if (!editor.container || !editor.container.$) {
 			return false;
 		}
@@ -143,10 +158,12 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		var ddTarget = new Ext.Element(editor.container.$),
 			ddTargetEl = ddTarget.dom;
 
+		var separator = config['contentSeparator'] || "\n";
+
 		var insert = {
 			text: function (text) {
 				var regex = /<br\s*[\/]?>/gi;
-				editor.insertText(text.replace(regex, "\n"));
+				editor.insertText(text.replace(regex, separator));
 				editor.focus();
 			},
 			link: function (id, text) {
@@ -159,17 +176,17 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			file: function (path, type) {
 				if (type) {
 					var element = '<' + type + ' src="/' + path + '" controls="">';
-					editor.insertHtml(element + "\n");
+					editor.insertHtml(element + separator);
 					editor.focus();
 				}
 			},
 			devtags: function (text) {
-				text = "<pre><devtags>\n" + text + "\n</devtags></pre>\n";
-				editor.insertHtml(text);
+				text = "<pre><devtags>\n" + text + "\n</devtags></pre>";
+				editor.insertHtml(text + separator);
 				editor.focus();
 			},
 			block: function (text) {
-				editor.insertHtml(text + "\n");
+				editor.insertHtml(text + separator);
 				editor.focus();
 			},
 		};
