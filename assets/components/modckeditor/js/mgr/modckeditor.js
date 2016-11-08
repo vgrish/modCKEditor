@@ -267,11 +267,6 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 						onInsert: insert.devtags
 					});
 				} else if (block && MODx.loadInsertBlock) {
-
-					/* TODO block */
-					console.log('block');
-					console.log(data.node);
-
 					MODx.loadInsertBlock({
 						pk: data.node.attributes.pk,
 						classKey: data.node.attributes.classKey,
