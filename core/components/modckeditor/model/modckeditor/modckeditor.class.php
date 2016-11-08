@@ -242,11 +242,13 @@ class modCKEditor
                     $tmp = array($tmp);
                 }
 
-                if (isset($config[$key]) AND is_array($tmp)) {
-                    $config[$key] = $this->array_merge_recursive_ex($config[$key], $tmp);
-                } else {
+                if (!isset($config[$key])) {
                     $config[$key] = $tmp;
                 }
+                elseif (isset($config[$key]) AND is_array($tmp)) {
+                    $config[$key] = $this->array_merge_recursive_ex($config[$key], $tmp);
+                }
+
             }
         }
 
