@@ -141,11 +141,10 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			return false;
 		}
 
-		var ddTarget = new Ext.Element(editor.container.$),
+		var ddTarget = new Ext.Element(editor.container.$, true),
 			ddTargetEl = ddTarget.dom;
 
 		var separator = config['contentSeparator'] || "\n";
-
 		var insert = {
 			text: function (text) {
 				var regex = /<br\s*[\/]?>/gi;
@@ -195,6 +194,9 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			},
 
 			notifyDrop: function (ddSource, e, data) {
+				fakeDiv && fakeDiv.remove();
+				ddTarget.on('mouseover', onMouseOver);
+
 				var v = '',
 					win = false,
 					block = false;
@@ -204,8 +206,6 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 				}
 
 				console.log(data);
-
-				fakeDiv && fakeDiv.remove();
 
 				switch (data.node.attributes.type) {
 					case 'modResource':
