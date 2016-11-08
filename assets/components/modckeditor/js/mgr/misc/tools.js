@@ -7,6 +7,27 @@ modckeditor.tools.getComponentNameBySelector = function (selector) {
 };
 
 
+modckeditor.tools.getСontentSeparator = function (enterMode) {
+	var separator = "\n";
+	switch (enterMode) {
+		case 1:
+			separator = "<p></p>";
+			break;
+		case 2:
+			separator = "<br>";
+			break;
+		case 3:
+			separator = "<div></div>";
+			break;
+		default:
+			separator = "\n";
+			break;
+	}
+
+	return separator;
+};
+
+
 modckeditor.tools.getFileBrowserUrl = function () {
 	var url = MODx.config['manager_url'] + 'index.php';
 	var query = {

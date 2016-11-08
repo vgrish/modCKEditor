@@ -1,5 +1,9 @@
 Changelog for modCKEditor
 
+1.0.19-beta (08.11.2016)
+==============
+- Small fix
+
 1.0.18-beta (07.11.2016)
 ==============
 - Add "drop block"

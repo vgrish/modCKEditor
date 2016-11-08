@@ -45,21 +45,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		}
 
 		config['componentName'] = modckeditor.tools.getComponentNameBySelector(config['selector']);
-
-		switch (config['enterMode']) {
-			case 1:
-				config['contentSeparator'] = "<p></p>";
-				break;
-			case 2:
-				config['contentSeparator'] = "<br>";
-				break;
-			case 3:
-				config['contentSeparator'] = "<div></div>";
-				break;
-			default:
-				config['contentSeparator'] = "\n";
-				break;
-		}
+		config['contentSeparator'] = modckeditor.tools.getСontentSeparator(config['enterMode']);
 
 		/* compact mode */
 		if (modckeditor.tools.keyExists(config['componentName'], config['editorCompact'])) {
