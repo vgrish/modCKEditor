@@ -136,7 +136,7 @@
 	box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
 }
 .mcked-body a.cke_dialog_ui_button {
-	font: normal 11px / 1 "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
+	font: normal 11px / 12 "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
 	background: #FFF;
 	border: 0;
 	text-shadow: none;
@@ -155,6 +155,11 @@
 	/* padding: 10px 15px 10px 15px; */
 	position: relative;
 	text-decoration: none;
+	padding: 8px 10px !important;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 28px;
 }
 .mcked-body a.cke_dialog_ui_button:hover,
 .mcked-body a.cke_dialog_ui_button:focus {
@@ -185,15 +190,18 @@
 	text-shadow: none;
 	padding: 0 !important;
 	font-weight: 400;
-	display: inline;
+	display: block;
+	height: 12px;
 	color: inherit !important;
 	font: inherit !important;
+	min-width: 20px;
+	text-align: center;
 }
 .mcked-body .cke_dialog_ui_labeled_label {
-	display: inline-block;
+	display: block;
 	color: #555555;
 	font: bold 12px / 1 "Helvetica Neue", Helvetica, Arial, Tahoma, sans-serif;
-	padding: 6px 0 4px;
+	padding: 0 0 2px;
 }
 .mcked-body .cke_dialog_ui_input_text,
 .mcked-body .cke_dialog_ui_input_select {
@@ -202,8 +210,19 @@
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.mcked-body input.cke_dialog_ui_input_text,
+.mcked-body select.cke_dialog_ui_input_select {
+	height: 28px;
+	padding: 6px;
 }
 .mcked-body .cke_dialog_ui_input_text:focus,
 .mcked-body .cke_dialog_ui_input_select:focus {
 	border-color: #2d86b7;
+}
+.mcked-body .cke_dialog_ui_hbox td {
+	padding-bottom: 6px;
 }

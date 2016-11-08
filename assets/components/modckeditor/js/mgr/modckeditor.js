@@ -161,13 +161,13 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			file: function (path, type) {
 				if (type) {
 					var element = '<' + type + ' src="/' + path + '" controls="">';
-					editor.insertHtml(element + separator);
+					editor.insertHtml(element);
 					editor.focus();
 				}
 			},
 			devtags: function (text) {
 				text = "<pre><devtags>\n" + text + "\n</devtags></pre>";
-				editor.insertHtml(text + separator);
+				editor.insertHtml(text);
 				editor.focus();
 			},
 			block: function (text) {
