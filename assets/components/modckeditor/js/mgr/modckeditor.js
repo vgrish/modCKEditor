@@ -119,9 +119,12 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 			}, this);
 		}
 
-		/* fix contenteditable margin */
-		//CKEDITOR.addCss('body.cke_editable.cke_show_borders  { margin: 10px; }');
-
+		/* fix change value */
+		editor.on('change', function(ev) {
+			if (ev.editor && ev.editor.config && ev.editor.config.element) {
+				ev.editor.config.element.value = editor.getData();
+			}
+		});
 
 		/*  */
 		CKEDITOR.on("instanceReady", function (ev) {
