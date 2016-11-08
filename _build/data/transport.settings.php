@@ -55,7 +55,7 @@ $tmp = array(
         'type'  => 'string'
     ),
     'cfg_extraPlugins'      => array(
-        'value' => '["uploadimage","image2","embed","lineutils","sourcedialog","widget"]',
+        'value' => '["uploadimage","image","embed","lineutils","sourcedialog","widget"]',
         'xtype' => 'textarea',
         'area'  => 'mcked_cfg',
         'type'  => 'string'
