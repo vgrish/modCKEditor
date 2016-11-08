@@ -10,12 +10,12 @@ modckeditor.ckeditor = function (editorConfig) {
 Ext.extend(modckeditor.ckeditor, Ext.Component, {
 	cfg: {
 		selector: '#ta',
+		element: null,
 		editorCompact: {
 			'ta': false,
 			'modx-richtext': true,
 		},
-
-		skin: 'moono',
+		skin: 'moono'
 	},
 
 	initComponent: function () {
@@ -25,9 +25,14 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 
 	render: function () {
 		Ext.apply(this.cfg, modckeditor.config, modckeditor.editorConfig, {});
-		Ext.each(Ext.query(this.cfg.selector), function (el) {
-			this.initialize(el, this.cfg);
-		}, this);
+		if (this.cfg.element) {
+			this.initialize(this.cfg.element, this.cfg);
+		} else {
+			Ext.each(Ext.query(this.cfg.selector), function (element) {
+				this.cfg.element = element;
+				this.initialize(element, this.cfg);
+			}, this);
+		}
 	},
 
 	setConfig: function (config) {
@@ -121,7 +126,7 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		/*  */
 		CKEDITOR.on("instanceReady", function (ev) {
 
-			/* add load class */
+			/* add modckeditor-load class */
 			ev.editor.element.$.classList.add("modckeditor-load");
 		});
 
@@ -310,16 +315,21 @@ modckeditor.loadEditorForFields = function (fields) {
 	modckeditor.config['additional_editor_fields'] = fields || modckeditor.config['additional_editor_fields'] || [];
 	modckeditor.config['additional_editor_fields'].filter(function (field) {
 
-		new modckeditor.ckeditor({
-			selector: '#' + field,
-			droppable: false
-		});
+		Ext.each(Ext.query('#' + field), function (element) {
+			new modckeditor.ckeditor({
+				selector: '#' + field,
+				element: element,
+				droppable: true
+			});
+		}, this);
 
-		new modckeditor.ckeditor({
-			selector: '.' + field,
-			droppable: false
-		});
-
+		Ext.each(Ext.query('.' + field), function (element) {
+			new modckeditor.ckeditor({
+				selector: '.' + field,
+				element: element,
+				droppable: true
+			});
+		}, this);
 	});
 
 };
@@ -329,10 +339,14 @@ MODx.loadRTE = function (id) {
 	if (modckeditor.config == undefined) {
 		return false;
 	}
-	new modckeditor.ckeditor({
-		selector: '#' + id,
-		droppable: true
-	});
+
+	Ext.each(Ext.query('#' + id), function (element) {
+		new modckeditor.ckeditor({
+			selector: '#' + id,
+			element: element,
+			droppable: true
+		});
+	}, this);
 };
 
 
@@ -340,6 +354,9 @@ MODx.unloadRTE = function (id) {
 	var editor = CKEDITOR.instances[id];
 	if (editor) {
 		CKEDITOR.remove(editor);
+
+		/* remove modckeditor-load class */
+		editor.element.$.classList.remove("modckeditor-load");
 		editor.destroy(true);
 	}
 };

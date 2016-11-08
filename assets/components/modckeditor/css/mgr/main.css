@@ -18,6 +18,10 @@
 	transition: border-color 0.25s;
 }
 
+.mcked-body .modckeditor-load {
+	display: none!important;
+}
+
 /* add css toolbar */
 .mcked-body .cke_inner .cke_top {
 	padding: 1px 1px 1px;
@@ -27,6 +31,16 @@
 .mcked-body .cke_toolbar .cke_combo_button {
 	margin: 0 1px 1px 0;
 }
+
+.mcked-body a.cke_button {
+	padding: 4px 4px;
+}
+
+/* hide toolbar separator */
+.mcked-body .cke_toolgroup span.cke_toolbar_separator {
+	display: none;
+}
+
 
 /* hide button */
 .mcked-body .cke_toolbar .cke_button__source,
