@@ -115,7 +115,8 @@ Ext.extend(modckeditor.ckeditor, Ext.Component, {
 		}
 
 		/* fix contenteditable margin */
-		CKEDITOR.addCss('body.cke_editable.cke_show_borders  { margin: 10px; }');
+		//CKEDITOR.addCss('body.cke_editable.cke_show_borders  { margin: 10px; }');
+
 
 		/*  */
 		CKEDITOR.on("instanceReady", function (ev) {
